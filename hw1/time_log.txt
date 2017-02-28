@@ -1,0 +1,22 @@
+ESTIMATE of time to complete assignment: 5 minutes
+
+      Time     Time
+Date  Started  Spent Work completed
+----  -------  ----  --------------
+2/6	  12:30pm  0:05  Fixed the max length test result and
+					 the double negative test result.
+
+			   ----
+			   0:05  TOTAL time spent
+
+
+I discussed my solution with: nobody.
+
+*A brief discussion of the major difficulties encountered*
+
+My old log file is no longer in my CS223 file on the zoo network!
+And it was accidentally overwritten on my local machine, and I
+am unable to retrieve it using the command:
+% /c/cs223/bin/retrieve  1  time_log.txt
+
+Therefore, this is my extra time_log, without the previous log data.

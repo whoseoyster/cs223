@@ -1,0 +1,31 @@
+ESTIMATE of time to complete assignment: 8 hours
+
+      Time     Time
+Date  Started  Spent Work completed
+----  -------  ----  --------------
+2/11   2:15pm  1:00  Read assignment and relevant material in K&R.
+					 Read up on hash tables and linked lists.
+2/11   3:15pm  3:00  Implemented the hash.c functionality using Aspnes' Notes.
+					 Settled on the multiplication method for the hash function.
+2/11   7:00pm  1:00	 Started working on Callme.c. Added argument parsing functionality
+					 for debugging, to read dictionary name, and error handling.
+2/11   9:00pm  0:30  Implemented functionality to open the dictionary file, read the 
+					 contents line by line and insert into the Hash table if everything was correct.
+2/12   1:00pm  1:00  Finished the alpha-number conversion and the number-alpha conversion.
+2/12   8:35pm  0:20  Debugged all valgrind issues until all public tests were passed.
+2/14   4:55pm  0:10  Fixed some minor bugs that might be a problem in private tests.
+               ----
+               7:00  TOTAL time spent
+
+I discussed my solution with: nobody.
+
+*A brief discussion of the major difficulties encountered*
+
+It was difficult to fully understand how to build a hash table with linked lists. Once this was understood,
+everything became much easier. The Valgrind memory allocation errors were slightly cumbersome to debug properly.
+Iterating through all possible combinations when the input argument was a number was also challenging. Once I 
+figured out how to do this, it was easy to implement the HashSearch method on each word to check whether the dictionary
+contained it. Adding only the words that were the same length of the input from the dictionary to the hash table was
+also a bit difficult to get right, since each word was actually a line and contained an extra \n character.
+A few minor issues on how to initialize variables properly, when to pass pointers instead of the values and things like
+this posed challenges, but were easier to overcome just with trial and error.

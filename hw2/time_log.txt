@@ -1,0 +1,25 @@
+ESTIMATE of time to complete assignment: 8 hours
+
+      Time     Time
+Date  Started  Spent Work completed
+----  -------  ----  --------------
+1/27   2:15pm  0:45  Read assignment and relevant material in K&R.
+					 Read up on malloc and pointers.
+1/27   4:15pm  2:00  Implemented a working solution for the -next flag.
+					 Fixed multiple memory allocation bugs.
+1/28   3:45pm  1:00	 Added working, but unelegant functionality for -next
+					 -ffd, and -bfd flags. Very messy still.
+1/30   8:00pm  3:00  Cleaned up all functionality and bugs. Attempted implementation
+					 of Korf. Then tried backtracking. 
+1/31   1:00pm  1:00  Finished implementing backtracking with heuristics. Added comments.
+2/2    5:35pm  0:05  Changed the -optm output to work correctly.
+2/13   2:30pm  0:10  Fixed all private test errors.
+2/15   8:10pm  0:30  Fixed time-out issues.
+               ----
+               7:55  TOTAL time spent
+
+I discussed my solution with: nobody.
+
+*A brief discussion of the major difficulties encountered*
+
+It was a bit of a challenge to create a dynamic length array using the heap memory. Figuring out how to processs the appropriate command line arguments as flags that needed to be sorted into another array before being processed was also a bit difficult. Implementing a basic sort function for all the offline procession methods also proved to be a bit confusing, but not too bad. Passing an array as an argument to a procedure was also confusing - was the same array's memory being changed or was it a new array created in memory? Understanding pointers and malloc/realloc helped. Backtracking was difficult to understand, and definitely challenging to implement all the heuristics. The strangest heuristic was the capacity *remainging* heuristic, because bins would switch and cause chaos. 

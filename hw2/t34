@@ -1,0 +1,8 @@
+#!/bin/bash
+# duplicate traces count as just one
+
+trap "/usr/bin/killall -q -u $USER Pack 2>/dev/null" 0 1 2 3 9 15
+
+echo Pack 
+/c/cs223/bin/run \
+	./Pack 60 70 30 40 -bfd -trace -trace
