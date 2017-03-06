@@ -1,0 +1,18 @@
+ESTIMATE of time to complete assignment: 8 hours
+
+      Time     Time
+Date  Started  Spent Work completed
+----  -------  ----  --------------
+1/27   2:15pm  0:45  Read assignment and relevant material in K&R.
+					 Read up on malloc and pointers.
+1/27   4:15pm  2:00  Implemented a working solution for the -next flag.
+					 Fixed multiple memory allocation bugs.
+               ----
+               2:45  TOTAL time spent
+
+I discussed my solution with: nobody.
+
+*A brief discussion of the major difficulties encountered*
+
+- creating a dynamic array using Heap memory
+- figuring out how to process the appropriate cmd line arguments for addition
