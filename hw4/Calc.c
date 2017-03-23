@@ -31,7 +31,8 @@ void calculate(stackT *stackP) {
   stackT stO;
   StackInit(&stO, stacksize);
 
-  printf("OUTPUT:\n");
+  if (debugflag)
+    printf("OUTPUT:\n");
 
   for(int i=0;i<s;i++) {
     Token t;
