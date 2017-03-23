@@ -220,6 +220,7 @@ int main(int argc, char **argv) {
       calculate(&st2);
 
       memset(in, '\0', 1024);
+      break;
     }
   }
 
