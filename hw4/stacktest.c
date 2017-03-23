@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include "/c/cs223/hw4/stack.h"
+#include "stack.h"
 
 /*
 struct token {
@@ -21,7 +21,7 @@ typedef struct token *Token;
 
 void * mymalloc(size_t s){
   void * ptr = malloc(s);
-  //printf("Mymalloc: %p\n", ptr);
+  printf("Mymalloc: %p\n", ptr);
   return ptr;
 }
 

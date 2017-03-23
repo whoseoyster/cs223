@@ -11,91 +11,96 @@ stack.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
-
-struct elt {
-    struct elt *next;
-    int value;
-};
-
-/* 
- * We could make a struct for this,
- * but it would have only one component,
- * so this is quicker.
- */
-typedef struct elt *Stack;
-
-#define STACK_EMPTY (0)
-
-/* push a new value onto top of stack */
-void
-stackPush(Stack *s, int value)
-{
-    struct elt *e;
-
-    e = malloc(sizeof(struct elt));
-    assert(e);
-
-    e->value = value;
-    e->next = *s;
-    *s = e;
-}
-
-int
-stackEmpty(const Stack *s)
-{
-    return (*s == 0);
-}
-
-int
-stackPop(Stack *s)
-{
-    int ret;
-    struct elt *e;
-
-    assert(!stackEmpty(s));
-
-    ret = (*s)->value;
-
-    /* patch out first element */
-    e = *s;
-    *s = e->next;
-
-    free(e);
-
-    return ret;
-}
+#include <stdbool.h>
+#include "stack.h"
 
 /* print contents of stack on a single line */
 void
-stackPrint(const Stack *s)
+StackPrint(stackT *stackP)
 {
-    struct elt *e;
+	int s = stackP->top + 1;
+	Token t;
 
-    for(e = *s; e != 0; e = e->next) {
-        printf("%d ", e->value);
+    printf("Stack: size: %i :", s);
+
+    for(int i=s-1;i>-1;i--) {
+    	t = stackP->contents[i];
+    	printf("[%i %s %.1f]  ", t->type, t->str, t->value);
     }
-    
+
     putchar('\n');
 }
 
-int
-main(int argc, char **argv)
+void 
+StackInit(stackT *stackP, int maxSize) 
 {
-    int i;
-    Stack s;
+	Token *newContents;
 
-    s = STACK_EMPTY;
+	/* Allocate a new array to hold the contents. */
 
-    for(i = 0; i < 5; i++) {
-        printf("push %d\n", i);
-        stackPush(&s, i);
-        stackPrint(&s);
+	newContents = (Token *)malloc(sizeof(Token)
+	                                    * maxSize);
+	assert(newContents);
+
+	stackP->contents = newContents;
+	stackP->maxSize = maxSize;
+	stackP->top = -1;  /* I.e., empty */
+}
+
+void
+StackDestroy(stackT *stackP)
+{
+	/* Get rid of array. */
+	free(stackP->contents);
+
+	stackP->contents = NULL;
+	stackP->maxSize = 0;
+	stackP->top = -1;  /* I.e., empty */
+}
+
+bool
+StackIsEmpty(stackT *stackP)
+{
+    return stackP->top < 0;
+}
+
+bool 
+StackIsFull(stackT *stackP)
+{
+	return stackP->top >= stackP->maxSize - 1;
+}
+
+/* push a new value onto top of stack */
+void
+StackPush(stackT *stackP, Token element)
+{
+    if(StackIsFull(stackP)) {
+    	fprintf(stderr, "Can't push element to stack. Stack is full.\n");
+    	exit(1);
     }
 
-    while(!stackEmpty(&s)) {
-        printf("pop gets %d\n", stackPop(&s));
-        stackPrint(&s);
-    }
+    stackP->contents[++stackP->top] = element;
+}
 
-    return 0;
+Token
+StackPop(stackT *stackP)
+{
+	if (StackIsEmpty(stackP)) {
+		fprintf(stderr, "Can't pop element from stack: stack is empty.\n");
+		exit(1);  /* Exit, returning error code. */
+	}
+	return stackP->contents[stackP->top--];
+}
+
+// number of elements on the stack
+int 
+StackCount(stackT *stackP) 
+{
+	return stackP->top + 1;
+}
+
+// Token at the top of stack
+Token 
+StackTop(stackT *stackP) {
+	return stackP->contents[stackP->top];
 }
