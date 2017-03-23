@@ -100,6 +100,13 @@ int main(int argc, char **argv) {
   char *tok;
   double val = 0;
 
+  for (int j=0;j<1024;j++) {
+    if (in[j] == '\0') {
+      break;
+    }
+    in[j] = '\0';
+  }
+
   while (true) {
     while((c = getchar()) != '\n' && c != EOF) {
       printf("%c\n", c);
