@@ -13,6 +13,7 @@ Calc.c
 #include <stdbool.h>
 #include <ctype.h>
 #include <string.h>
+#include <assert.h>
 #include "stack.h"
 
 #define stacksize (1024)
@@ -36,6 +37,7 @@ void calculate(stackT *stackP) {
     Token t;
   
     t = mymalloc(sizeof(struct token));
+    assert(t);
 
     t = stackP->contents[i];
 
@@ -55,6 +57,8 @@ void calculate(stackT *stackP) {
 
     oper1 = mymalloc(sizeof(struct token));
     oper2 = mymalloc(sizeof(struct token));
+    assert(oper1);
+    assert(oper2);
 
     oper1 = StackPop(&stO);
     oper2 = StackTop(&stO);
@@ -73,10 +77,10 @@ void calculate(stackT *stackP) {
     char str[300];
     sprintf(str, "%d", (int)result );
 
-    oper1->str = str;
+    oper1->str = strdup(str);
     StackPush(&stO, oper1);
-    // free(oper2->str);
-    // free(oper2);
+    free(oper2->str);
+    free(oper2);
   }
 
   printf("Result: %.2f\n", StackTop(&stO)->value);
@@ -100,13 +104,10 @@ int main(int argc, char **argv) {
   char *tok;
   double val = 0;
 
-  for (int j=0;j<1024;j++) {
-    in[j] = '\0';
-  }
+  memset(in, '\0', 1024);
 
   while (true) {
     while((c = getchar()) != '\n' && c != EOF) {
-      printf("%c\n", c);
       in[i] = c;
       i++;
       d = true;
@@ -137,9 +138,11 @@ int main(int argc, char **argv) {
 
         t = mymalloc(sizeof(struct token));
         top = mymalloc(sizeof(struct token));
+        assert(t);
+        assert(top);
 
         val = 0;
-        t->str = tok;
+        t->str = strdup(tok);
         t->value = val;
 
         if (strcmp(tok, "(") == 0) {
@@ -158,8 +161,8 @@ int main(int argc, char **argv) {
             }
           }
           StackPop(&st1);
-          // free(top->str);
-          // free(top);
+          free(top->str);
+          free(top);
         } else if (strcmp(tok, "+") == 0) {
           t->type = OP1;
         } else if (strcmp(tok, "-") == 0) {
@@ -171,8 +174,7 @@ int main(int argc, char **argv) {
         } else {
           char *extra;
           double num = strtod(tok, &extra);
-          if (strlen(extra) == 0) {
-            printf("length extra: %i, content: %s\n", strlen(extra), extra);
+          if (strlen(extra) != 0) {
             fprintf(stderr, "Fatal Error. Bad token: %s\n", tok);
             exit(0);
           } else {
@@ -204,6 +206,7 @@ int main(int argc, char **argv) {
       while (!StackIsEmpty(&st1)) {
         Token t;
         t = mymalloc(sizeof(struct token));
+        assert(t);
         t = StackPop(&st1);
         if (t->type == 3) {
           fprintf(stderr, "Error: Mismatched parentheses\n");
@@ -216,12 +219,7 @@ int main(int argc, char **argv) {
 
       calculate(&st2);
 
-      for (int j=0;j<1024;j++) {
-        if (in[j] == '\0') {
-          break;
-        }
-        in[j] = '\0';
-      }
+      memset(in, '\0', 1024);
     }
   }
 
