@@ -172,6 +172,7 @@ int main(int argc, char **argv) {
           char *extra;
           double num = strtod(tok, &extra);
           if (strlen(extra) == 0) {
+            printf("length extra: %i, content: %s\n", strlen(extra), extra);
             fprintf(stderr, "Fatal Error. Bad token: %s\n", tok);
             exit(0);
           } else {
