@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
 
   while (true) {
     while((c = getchar()) != '\n' && c != EOF) {
-      // printf("%c\n", c);
+      printf("%c\n", c);
       in[i] = c;
       i++;
       d = true;
