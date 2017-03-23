@@ -62,8 +62,7 @@ void calculate(stackT *stackP) {
     assert(oper2);
 
     oper1 = StackPop(&stO);
-    oper2 = StackTop(&stO);
-    StackPop(&stO);
+    oper2 = StackPop(&stO);
 
     if (strcmp(t->str, "+") == 0) {
       result = oper1->value + oper2->value;
@@ -80,8 +79,8 @@ void calculate(stackT *stackP) {
 
     oper1->str = strdup(str);
     StackPush(&stO, oper1);
-    free(oper2->str);
-    free(oper2);
+    // free(oper2->str);
+    // free(oper2);
   }
 
   printf("Result: %.2f\n", StackTop(&stO)->value);
