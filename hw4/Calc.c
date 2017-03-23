@@ -79,8 +79,8 @@ void calculate(stackT *stackP) {
 
     oper1->str = strdup(str);
     StackPush(&stO, oper1);
-    // free(oper2->str);
-    // free(oper2);
+    free(oper2->str);
+    free(oper2);
   }
 
   printf("Result: %.2f\n", StackTop(&stO)->value);
@@ -190,8 +190,8 @@ int main(int argc, char **argv) {
             while (top->type >= t->type && top->type < 3) {
               StackPop(&st1);
               StackPush(&st2, top);
-              top = StackTop(&st1);
               if(StackIsEmpty(&st1)) break;
+              top = StackTop(&st1);
             }
           }
           StackPush(&st1, t);  
