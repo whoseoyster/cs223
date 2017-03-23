@@ -101,9 +101,6 @@ int main(int argc, char **argv) {
   double val = 0;
 
   for (int j=0;j<1024;j++) {
-    if (in[j] == '\0') {
-      break;
-    }
     in[j] = '\0';
   }
 
@@ -174,7 +171,7 @@ int main(int argc, char **argv) {
         } else {
           char *extra;
           double num = strtod(tok, &extra);
-          if (*extra != '\0') {
+          if (strlen(extra) == 0) {
             fprintf(stderr, "Fatal Error. Bad token: %s\n", tok);
             exit(0);
           } else {
