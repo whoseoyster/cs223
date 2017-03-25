@@ -107,6 +107,8 @@ int main(int argc, char **argv) {
   memset(in, '\0', 1024);
 
   Token tk;
+  Token t;
+  Token top;
 
   while (true) {
     while((c = getchar()) != '\n' && c != EOF) {
