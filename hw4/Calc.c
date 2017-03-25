@@ -115,7 +115,6 @@ int main(int argc, char **argv) {
   bool d = false;
   int i=0;
   bool kill = false;
-  bool fin = false;
 
   char *tok;
   double val = 0;
@@ -242,10 +241,9 @@ int main(int argc, char **argv) {
 
       memset(in, '\0', 1024);
 
-      if (kill) {
-        if (feof(stdin)) break;
-      }
-
+    }
+    if (kill) {
+      if (feof(stdin)) break;
     }
   }
 
