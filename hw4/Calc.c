@@ -106,8 +106,6 @@ int main(int argc, char **argv) {
 
   memset(in, '\0', 1024);
 
-  Token t;
-  Token top;
   Token tk;
 
   while (true) {
@@ -141,9 +139,6 @@ int main(int argc, char **argv) {
         top = mymalloc(sizeof(struct token));
         assert(t);
         assert(top);
-
-        t = NULL;
-        top = NULL;
 
         val = 0;
         t->str = strdup(tok);
