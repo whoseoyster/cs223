@@ -144,7 +144,8 @@ int main(int argc, char **argv) {
         t = mymalloc(sizeof(struct token));
         assert(t);
 
-        str = calloc(sizeof(char)*strlen(tok));
+        str = malloc(sizeof(char)*strlen(tok));
+        memset(str, '\0', strlen(tok)+1);
         assert(char);
         strncpy(str, tok, strlen(tok));
 
