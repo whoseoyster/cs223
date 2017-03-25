@@ -37,7 +37,7 @@ void calculate(stackT *stackP) {
   Token t1;
   Token oper1;
   Token oper2;
-  Token result;
+  Token res;
 
   for(int i=0;i<s;i++) {
   
@@ -75,14 +75,14 @@ void calculate(stackT *stackP) {
     free(oper1->str);
     free(oper1);
 
-    result = mymalloc(sizeof(struct token));
+    res = mymalloc(sizeof(struct token));
 
-    result->value = result;
+    res->value = result;
     char str[1024];
     sprintf(str, "%d", (int)result );
 
-    result->str = strdup(str);
-    StackPush(&stO, result);
+    res->str = strdup(str);
+    StackPush(&stO, res);
     
   }
 
