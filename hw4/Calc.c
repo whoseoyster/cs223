@@ -141,9 +141,7 @@ int main(int argc, char **argv) {
         // printf(" %s\n", tok );
 
         t = mymalloc(sizeof(struct token));
-        top = mymalloc(sizeof(struct token));
         assert(t);
-        assert(top);
 
         val = 0;
         t->str = strdup(tok);
@@ -195,7 +193,6 @@ int main(int argc, char **argv) {
             while (top->type >= t->type && top->type < 3) {
               StackPop(&st1);
               StackPush(&st2, top);
-              top = mymalloc(sizeof(struct token));
               if(StackIsEmpty(&st1)) break;
               top = StackTop(&st1);
             }
