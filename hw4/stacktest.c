@@ -21,7 +21,7 @@ typedef struct token *Token;
 
 void * mymalloc(size_t s){
   void * ptr = malloc(s);
-  printf("Mymalloc: %p\n", ptr);
+  // printf("Mymalloc: %p\n", ptr);
   return ptr;
 }
 
@@ -49,11 +49,13 @@ int main(int argc, char **argv){
     StackPush(&st, tok);
   }
 
-  StackPrint(&st);
-  tok = StackTop(&st);
-  StackPop(&st);
-  free(tok->str);
-  free(tok);
+  // StackPrint(&st);
+  // tok = StackTop(&st);
+  // StackPop(&st);
+  // free(tok->str);
+  // free(tok);
+
+  printf("BOOO\n");
 
   StackPrint(&st);
   StackDestroy(&st);
