@@ -164,6 +164,7 @@ int main(int argc, char **argv) {
           StackPop(&st1);
           free(top->str);
           free(top);
+          top = NULL;
         } else if (strcmp(tok, "+") == 0) {
           t->type = OP1;
         } else if (strcmp(tok, "-") == 0) {
@@ -191,6 +192,7 @@ int main(int argc, char **argv) {
             while (top->type >= t->type && top->type < 3) {
               StackPop(&st1);
               StackPush(&st2, top);
+              top = mymalloc(sizeof(struct token));
               if(StackIsEmpty(&st1)) break;
               top = StackTop(&st1);
             }
@@ -204,9 +206,8 @@ int main(int argc, char **argv) {
         }
         tok = strtok(NULL, " ");
 
-        t = NULL;
-        top = NULL;
-        free(top);
+        if (top != NULL) 
+          free(top);
       }
       while (!StackIsEmpty(&st1)) {
         tk = mymalloc(sizeof(struct token));
@@ -217,8 +218,6 @@ int main(int argc, char **argv) {
           exit(0);
         }
         StackPush(&st2, tk);
-        tk = NULL;
-        free(tk);
       }
       
       StackDestroy(&st1);
