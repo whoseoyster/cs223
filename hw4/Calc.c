@@ -90,6 +90,8 @@ void calculate(stackT *stackP) {
   StackDestroy(&stO);
   StackDestroy(stackP);
 
+  free(t);
+
 }
 
 int main(int argc, char **argv) {
