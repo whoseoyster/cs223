@@ -34,8 +34,9 @@ void calculate(stackT *stackP) {
   if (debugflag)
     printf("OUTPUT:\n");
 
+  Token t;
+
   for(int i=0;i<s;i++) {
-    Token t;
   
     t = mymalloc(sizeof(struct token));
     assert(t);
@@ -82,6 +83,8 @@ void calculate(stackT *stackP) {
     free(oper2->str);
     free(oper2);
   }
+
+  stackP->top = -1;
 
   printf("Result: %.2f\n", StackTop(&stO)->value);
   StackDestroy(&stO);
