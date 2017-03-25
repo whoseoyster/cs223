@@ -40,7 +40,7 @@ void calculate(stackT *stackP) {
   for(int i=0;i<s;i++) {
   
     printf("AYA\n");
-    assert(t);
+    assert(t1);
 
     t1 = stackP->contents[i];
 
