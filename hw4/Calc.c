@@ -106,6 +106,10 @@ int main(int argc, char **argv) {
 
   memset(in, '\0', 1024);
 
+  Token t;
+  Token top;
+  Token tk;
+
   while (true) {
     while((c = getchar()) != '\n' && c != EOF) {
       in[i] = c;
@@ -133,13 +137,13 @@ int main(int argc, char **argv) {
       {
         // printf(" %s\n", tok );
 
-        Token t;
-        Token top;
-
         t = mymalloc(sizeof(struct token));
         top = mymalloc(sizeof(struct token));
         assert(t);
         assert(top);
+
+        t = NULL;
+        top = NULL;
 
         val = 0;
         t->str = strdup(tok);
@@ -203,20 +207,20 @@ int main(int argc, char **argv) {
         }
         tok = strtok(NULL, " ");
 
-        free(t);
-        free(top);
+        t = NULL;
+        top = NULL;
+        // free(t);
       }
       while (!StackIsEmpty(&st1)) {
-        Token t;
-        t = mymalloc(sizeof(struct token));
-        assert(t);
-        t = StackPop(&st1);
-        if (t->type == 3) {
+        tk = mymalloc(sizeof(struct token));
+        assert(tk);
+        tk = StackPop(&st1);
+        if (tk->type == 3) {
           fprintf(stderr, "Error: Mismatched parentheses\n");
           exit(0);
         }
-        StackPush(&st2, t);
-        free(t);
+        StackPush(&st2, tk);
+        tk = NULL;
       }
       
       StackDestroy(&st1);
