@@ -34,24 +34,24 @@ void calculate(stackT *stackP) {
   if (debugflag)
     printf("OUTPUT:\n");
 
-  Token t;
+  Token t1;
+  t1 = mymalloc(sizeof(struct token));
 
   for(int i=0;i<s;i++) {
   
     printf("AYA\n");
-    t = mymalloc(sizeof(struct token));
     assert(t);
 
-    // t = stackP->contents[i];
-    t = StackPop(stackP);
+    t1 = stackP->contents[i];
 
     if (debugflag) {
       StackPrint(&stO);
-      printf("Token:%s: type: %i value: %.2f\n", t->str, t->type, t->value);
+      printf("Token:%s: type: %i value: %.2f\n", t1->str, t1->type, t1->value);
     }
 
-    if (t->type == 0) {
-      StackPush(&stO, t);
+    if (t1->type == 0) {
+      StackPush(&stO, t1);
+      t1 = mymalloc(sizeof(struct token));
       continue;
     } 
 
@@ -67,13 +67,13 @@ void calculate(stackT *stackP) {
     oper1 = StackPop(&stO);
     oper2 = StackPop(&stO);
 
-    if (strcmp(t->str, "+") == 0) {
+    if (strcmp(t1->str, "+") == 0) {
       result = oper1->value + oper2->value;
-    } else if (strcmp(t->str, "-") == 0) {
+    } else if (strcmp(t1->str, "-") == 0) {
       result = oper2->value - oper1->value;
-    } else if (strcmp(t->str, "*") == 0) {
+    } else if (strcmp(t1->str, "*") == 0) {
       result = oper1->value * oper2->value;
-    } else if (strcmp(t->str, "/") == 0) {
+    } else if (strcmp(t1->str, "/") == 0) {
       result = oper2->value - oper1->value;
     }
     oper1->value = result;
@@ -86,7 +86,7 @@ void calculate(stackT *stackP) {
     free(oper2);
   }
 
-  // stackP->top = -1;
+  stackP->top = -1;
 
   printf("Result: %.2f\n", StackTop(&stO)->value);
   StackDestroy(&stO);
