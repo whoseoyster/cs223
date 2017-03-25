@@ -51,7 +51,7 @@ void
 StackDestroy(stackT *stackP)
 {
 	/* Get rid of array. */
-	for (int i=0; i<stackP->top+1; i++) {
+	for (int i=0; i<stackP->top+2; i++) {
 		if (stackP->contents[i]->str != NULL) {
 			free(stackP->contents[i]->str);
 		}
@@ -95,8 +95,7 @@ Token
 StackPop(stackT *stackP)
 {
 	if (StackIsEmpty(stackP)) {
-		fprintf(stderr, "Can't pop element from stack: stack is empty.\n");
-		exit(1);  /* Exit, returning error code. */
+		return -1;
 	}
 	return stackP->contents[stackP->top--];
 }

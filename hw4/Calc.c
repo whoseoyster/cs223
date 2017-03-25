@@ -61,6 +61,11 @@ void calculate(stackT *stackP) {
     oper1 = StackPop(&stO);
     oper2 = StackPop(&stO);
 
+    if (oper1 == -1 || oper2 == -1) {
+      fprintf(stderr, "Fatal error: fewer than 2 operands available.\n");
+      exit(0);
+    }
+
     if (strcmp(t1->str, "+") == 0) {
       result = oper1->value + oper2->value;
     } else if (strcmp(t1->str, "-") == 0) {
@@ -163,7 +168,7 @@ int main(int argc, char **argv) {
             StackPop(&st1);
             StackPush(&st2, top);
             if(StackIsEmpty(&st1)) {
-              fprintf(stderr, "Error: Mismatched parentheses\n");
+              fprintf(stderr, "Fatal error: missing left paren.\n");
               exit(0);
             }
             top = StackTop(&st1);
