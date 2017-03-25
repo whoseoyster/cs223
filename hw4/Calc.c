@@ -163,6 +163,8 @@ int main(int argc, char **argv) {
             }
           }
           StackPop(&st1);
+          free(top->str);
+          free(top);
         } else if (strcmp(tok, "+") == 0) {
           t->type = OP1;
         } else if (strcmp(tok, "-") == 0) {
