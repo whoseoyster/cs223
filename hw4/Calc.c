@@ -219,10 +219,10 @@ int main(int argc, char **argv) {
         free(t);
       }
       
-      // StackDestroy(&st1);
+      StackDestroy(&st1);
 
       // calculate(&st2);
-      // StackDestroy(&st2);
+      StackDestroy(&st2);
 
       memset(in, '\0', 1024);
       break;
