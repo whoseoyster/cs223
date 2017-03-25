@@ -146,7 +146,7 @@ int main(int argc, char **argv) {
 
         str = malloc(sizeof(char)*strlen(tok));
         memset(str, '\0', strlen(tok)+1);
-        assert(char);
+        assert(str);
         strncpy(str, tok, strlen(tok));
 
         val = 0;
