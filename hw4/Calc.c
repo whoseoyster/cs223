@@ -145,7 +145,7 @@ int main(int argc, char **argv) {
 
         val = 0;
         t->str = strdup(tok);
-        printf("length: %s: %i\n", t->str, strlen(t->str));
+        printf("length: %s: %zu\n", t->str, strlen(t->str));
         t->value = val;
 
         if (strcmp(tok, "(") == 0) {
