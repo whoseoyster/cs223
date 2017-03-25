@@ -56,7 +56,7 @@ StackDestroy(stackT *stackP)
 		free(stackP->contents[i]);	
 	}
 
-	free(stackP->contents);
+	// free(stackP->contents);
 	
 	stackP->contents = NULL;
 	stackP->maxSize = 0;
