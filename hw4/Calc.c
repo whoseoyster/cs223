@@ -76,12 +76,14 @@ void calculate(stackT *stackP) {
     free(oper1);
 
     res = mymalloc(sizeof(struct token));
+    assert(res);
 
     res->value = result;
     char str[1024];
     sprintf(str, "%d", (int)result );
 
     res->str = strdup(str);
+    res->type = NUM;
     StackPush(&stO, res);
     
   }
