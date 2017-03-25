@@ -35,11 +35,12 @@ void calculate(stackT *stackP) {
     printf("OUTPUT:\n");
 
   Token t1;
-  t1 = mymalloc(sizeof(struct token));
+  Token oper1;
+  Token oper2;
 
   for(int i=0;i<s;i++) {
   
-    printf("AYA\n");
+    t1 = mymalloc(sizeof(struct token));
     assert(t1);
 
     t1 = stackP->contents[i];
@@ -51,12 +52,9 @@ void calculate(stackT *stackP) {
 
     if (t1->type == 0) {
       StackPush(&stO, t1);
-      t1 = mymalloc(sizeof(struct token));
       continue;
     } 
-
-    Token oper1;
-    Token oper2;
+    
     double result = 0;
 
     oper1 = mymalloc(sizeof(struct token));
