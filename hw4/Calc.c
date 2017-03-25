@@ -37,7 +37,6 @@ void calculate(stackT *stackP) {
   Token t1;
   Token oper1;
   Token oper2;
-  char str[300];
 
   for(int i=0;i<s;i++) {
   
@@ -76,9 +75,10 @@ void calculate(stackT *stackP) {
       result = oper2->value - oper1->value;
     }
     oper1->value = result;
+    char str[300];
     sprintf(str, "%d", (int)result );
 
-    oper1->str = str;
+    oper1->str = strdup(str);
     StackPush(&stO, oper1);
     free(oper2->str);
     free(oper2);
