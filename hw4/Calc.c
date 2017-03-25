@@ -72,13 +72,15 @@ void calculate(stackT *stackP) {
     } else if (strcmp(t1->str, "*") == 0) {
       result = oper1->value * oper2->value;
     } else if (strcmp(t1->str, "/") == 0) {
-      result = oper2->value - oper1->value;
+      result = oper2->value / oper1->value;
     }
     oper1->value = result;
-    char str[300];
+    char str[1024];
     sprintf(str, "%d", (int)result );
 
-    oper1->str = strdup(str);
+    // oper1->str = strdup(str);
+    strcpy(oper1->str, str);
+
     StackPush(&stO, oper1);
     free(oper2->str);
     free(oper2);
@@ -144,7 +146,8 @@ int main(int argc, char **argv) {
         assert(t);
 
         val = 0;
-        t->str = strdup(tok);
+        strcpy(t->str, tok);
+        // t->str = strdup(tok);
         t->value = val;
 
         if (strcmp(tok, "(") == 0) {
