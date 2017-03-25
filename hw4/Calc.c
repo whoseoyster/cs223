@@ -42,7 +42,8 @@ void calculate(stackT *stackP) {
     t = mymalloc(sizeof(struct token));
     assert(t);
 
-    t = stackP->contents[i];
+    // t = stackP->contents[i];
+    t = StackPop(stackP);
 
     if (debugflag) {
       StackPrint(&stO);
@@ -51,7 +52,6 @@ void calculate(stackT *stackP) {
 
     if (t->type == 0) {
       StackPush(&stO, t);
-      free(t);
       continue;
     } 
 
