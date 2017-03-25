@@ -202,10 +202,8 @@ int main(int argc, char **argv) {
           StackPrint(&st1);
         }
         tok = strtok(NULL, " ");
-
-        if (top != NULL) 
-          free(top);
       }
+      
       while (!StackIsEmpty(&st1)) {
         // tk = mymalloc(sizeof(struct token));
         // assert(tk);
