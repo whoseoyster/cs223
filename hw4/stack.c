@@ -12,7 +12,7 @@ stack.c
 #include <stdlib.h>
 #include <assert.h>
 #include <stdbool.h>
-#include "stack.h"
+#include "/c/cs223/hw4/stack.h"
 
 /* print contents of stack on a single line */
 void

@@ -14,7 +14,7 @@ Calc.c
 #include <ctype.h>
 #include <string.h>
 #include <assert.h>
-#include "stack.h"
+#include "/c/cs223/hw4/stack.h"
 
 #define stacksize (1024)
 
@@ -82,7 +82,7 @@ void calculate(stackT *stackP) {
 
     res->value = result;
     char str[1024];
-    sprintf(str, "%d", (int)result );
+    sprintf(str, "%.1f", result );
 
     res->str = strdup(str);
     res->type = NUM;
