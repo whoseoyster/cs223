@@ -51,8 +51,11 @@ void
 StackDestroy(stackT *stackP)
 {
 	/* Get rid of array. */
-	free(stackP->contents);
-
+	for (int i=0; i<stackP->top-1; i++) {
+		free(stackP->contents[i]->str);
+		free(stackP->contents[i]);	
+	}
+	
 	stackP->contents = NULL;
 	stackP->maxSize = 0;
 	stackP->top = -1;  /* I.e., empty */
