@@ -213,6 +213,7 @@ int main(int argc, char **argv) {
           exit(0);
         }
         StackPush(&st2, t);
+        free(t);
       }
       
       StackDestroy(&st1);
