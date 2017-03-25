@@ -222,11 +222,9 @@ int main(int argc, char **argv) {
       
       StackDestroy(&st1);
 
-      // calculate(&st2);
-      StackDestroy(&st2);
+      calculate(&st2);
 
       memset(in, '\0', 1024);
-      break;
     }
   }
 
