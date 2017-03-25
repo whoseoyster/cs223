@@ -153,14 +153,14 @@ int main(int argc, char **argv) {
         } else if (strcmp(tok, ")") == 0) {
           t->type = RPAR;
           top = StackTop(&st1);
-          while (top->type != 3) {
+          while (top->type != LPAR) {
             StackPop(&st1);
             StackPush(&st2, top);
-            top = StackTop(&st1);
             if(StackIsEmpty(&st1)) {
               fprintf(stderr, "Error: Mismatched parentheses\n");
               exit(0);
             }
+            top = StackTop(&st1);
           }
           StackPop(&st1);
           free(top->str);
@@ -204,7 +204,8 @@ int main(int argc, char **argv) {
           StackPrint(&st1);
         }
 
-        if (t->type == 4) {
+        if (t->type == RPAR) {
+          printf("RIGHT PAR\n");
           free(t->str);
           free(t);
         }
