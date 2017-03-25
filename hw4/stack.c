@@ -52,7 +52,6 @@ StackDestroy(stackT *stackP)
 {
 	/* Get rid of array. */
 	for (int i=0; i<stackP->top+1; i++) {
-		printf("token: %s\n", stackP->contents[i]->str);
 		if (stackP->contents[i]->str != NULL) {
 			free(stackP->contents[i]->str);
 		}

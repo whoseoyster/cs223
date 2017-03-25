@@ -51,6 +51,7 @@ void calculate(stackT *stackP) {
 
     if (t->type == 0) {
       StackPush(&stO, t);
+      free(t);
       continue;
     } 
 
