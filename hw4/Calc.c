@@ -216,6 +216,9 @@ int main(int argc, char **argv) {
         free(t);
       }
       
+      free(t);
+      free(tok);
+      
       StackDestroy(&st1);
 
       // calculate(&st2);

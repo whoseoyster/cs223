@@ -49,7 +49,11 @@ int main(int argc, char ** argv) {
   printf("2 %s\n", foo);
   strncpy(foo, "you are", 7);
   printf("3 %s\n", foo);
+  char *bar = malloc(20);
+  bar = foo;
+
   free(foo);
+  printf("bar: %s\n", bar);
 
   return 0;
 }
