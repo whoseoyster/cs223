@@ -206,7 +206,7 @@ int main(int argc, char **argv) {
 
         t = NULL;
         top = NULL;
-        // free(t);
+        free(top);
       }
       while (!StackIsEmpty(&st1)) {
         tk = mymalloc(sizeof(struct token));
@@ -218,6 +218,7 @@ int main(int argc, char **argv) {
         }
         StackPush(&st2, tk);
         tk = NULL;
+        free(tk);
       }
       
       StackDestroy(&st1);
