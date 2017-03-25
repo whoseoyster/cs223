@@ -54,7 +54,7 @@ StackDestroy(stackT *stackP)
 	for (int i=0; i<stackP->top+1; i++) {
 		printf("token: %s\n", stackP->contents[i]->str);
 		free(stackP->contents[i]->str);
-		// free(stackP->contents[i]);	
+		free(stackP->contents[i]);	
 	}
 
 	free(stackP->contents);
