@@ -78,9 +78,7 @@ void calculate(stackT *stackP) {
     char str[1024];
     sprintf(str, "%d", (int)result );
 
-    // oper1->str = strdup(str);
-    strcpy(oper1->str, str);
-
+    oper1->str = strdup(str);
     StackPush(&stO, oper1);
     free(oper2->str);
     free(oper2);
@@ -146,8 +144,8 @@ int main(int argc, char **argv) {
         assert(t);
 
         val = 0;
-        strcpy(t->str, tok);
-        // t->str = strdup(tok);
+        t->str = strdup(tok);
+        printf("length: %s: %i\n", strlen(t->str));
         t->value = val;
 
         if (strcmp(tok, "(") == 0) {
