@@ -202,6 +202,9 @@ int main(int argc, char **argv) {
           StackPrint(&st1);
         }
         tok = strtok(NULL, " ");
+
+        free(t);
+        free(top);
       }
       while (!StackIsEmpty(&st1)) {
         Token t;
@@ -215,9 +218,6 @@ int main(int argc, char **argv) {
         StackPush(&st2, t);
         free(t);
       }
-      
-      free(t);
-      free(tok);
       
       StackDestroy(&st1);
 
