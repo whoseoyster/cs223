@@ -40,8 +40,8 @@ void calculate(stackT *stackP) {
 
   for(int i=0;i<s;i++) {
   
-    t1 = mymalloc(sizeof(struct token));
-    assert(t1);
+    // t1 = mymalloc(sizeof(struct token));
+    // assert(t1);
 
     t1 = stackP->contents[i];
 
@@ -57,10 +57,10 @@ void calculate(stackT *stackP) {
     
     double result = 0;
 
-    oper1 = mymalloc(sizeof(struct token));
-    oper2 = mymalloc(sizeof(struct token));
-    assert(oper1);
-    assert(oper2);
+    // oper1 = mymalloc(sizeof(struct token));
+    // oper2 = mymalloc(sizeof(struct token));
+    // assert(oper1);
+    // assert(oper2);
 
     oper1 = StackPop(&stO);
     oper2 = StackPop(&stO);
@@ -213,8 +213,8 @@ int main(int argc, char **argv) {
           free(top);
       }
       while (!StackIsEmpty(&st1)) {
-        tk = mymalloc(sizeof(struct token));
-        assert(tk);
+        // tk = mymalloc(sizeof(struct token));
+        // assert(tk);
         tk = StackPop(&st1);
         if (tk->type == 3) {
           fprintf(stderr, "Error: Mismatched parentheses\n");
