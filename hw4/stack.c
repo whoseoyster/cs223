@@ -51,7 +51,7 @@ void
 StackDestroy(stackT *stackP)
 {
 	/* Get rid of array. */
-	for (int i=0; i<stackP->top+2; i++) {
+	for (int i=0; i<stackP->top+1; i++) {
 		if (stackP->contents[i]->str != NULL) {
 			free(stackP->contents[i]->str);
 		}
@@ -95,7 +95,8 @@ Token
 StackPop(stackT *stackP)
 {
 	if (StackIsEmpty(stackP)) {
-		return -1;
+		fprintf(stderr, "Fatal error: fewer than 2 operands available.\n");
+		exit(1);  /* Exit, returning error code. */
 	}
 	return stackP->contents[stackP->top--];
 }
