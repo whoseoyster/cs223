@@ -37,6 +37,7 @@ void calculate(stackT *stackP) {
   Token t1;
   Token oper1;
   Token oper2;
+  Token result;
 
   for(int i=0;i<s;i++) {
   
@@ -57,11 +58,6 @@ void calculate(stackT *stackP) {
     
     double result = 0;
 
-    // oper1 = mymalloc(sizeof(struct token));
-    // oper2 = mymalloc(sizeof(struct token));
-    // assert(oper1);
-    // assert(oper2);
-
     oper1 = StackPop(&stO);
     oper2 = StackPop(&stO);
 
@@ -74,14 +70,20 @@ void calculate(stackT *stackP) {
     } else if (strcmp(t1->str, "/") == 0) {
       result = oper2->value / oper1->value;
     }
-    oper1->value = result;
+    free(oper2->str);
+    free(oper2);
+    free(oper1->str);
+    free(oper1);
+
+    result = mymalloc(sizeof(struct token));
+
+    result->value = result;
     char str[1024];
     sprintf(str, "%d", (int)result );
 
-    oper1->str = strdup(str);
-    StackPush(&stO, oper1);
-    free(oper2->str);
-    free(oper2);
+    result->str = strdup(str);
+    StackPush(&stO, result);
+    
   }
 
   stackP->top = -1;
@@ -205,7 +207,6 @@ int main(int argc, char **argv) {
         }
 
         if (t->type == RPAR) {
-          printf("RIGHT PAR\n");
           free(t->str);
           free(t);
         }
@@ -214,8 +215,6 @@ int main(int argc, char **argv) {
       }
       
       while (!StackIsEmpty(&st1)) {
-        // tk = mymalloc(sizeof(struct token));
-        // assert(tk);
         tk = StackPop(&st1);
         if (tk->type == 3) {
           fprintf(stderr, "Error: Mismatched parentheses\n");
@@ -225,9 +224,8 @@ int main(int argc, char **argv) {
       }
       
       StackDestroy(&st1);
-      StackDestroy(&st2);
 
-      // calculate(&st2);
+      calculate(&st2);
 
       memset(in, '\0', 1024);
     }
