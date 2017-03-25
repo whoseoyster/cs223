@@ -114,6 +114,7 @@ int main(int argc, char **argv) {
   char c;
   bool d = false;
   int i=0;
+  bool kill = false;
 
   char *tok;
   double val = 0;
@@ -123,6 +124,8 @@ int main(int argc, char **argv) {
   Token tk;
   Token t;
   Token top;
+
+  if (!feof(stdin)) kill=true;
 
   while (true) {
     while((c = getchar()) != '\n' && c != EOF) {
@@ -237,6 +240,9 @@ int main(int argc, char **argv) {
       calculate(&st2);
 
       memset(in, '\0', 1024);
+
+      if (kill)
+        break;
     }
   }
 
