@@ -25,7 +25,7 @@ StackPrint(stackT *stackP)
 
     for(int i=s-1;i>-1;i--) {
     	t = stackP->contents[i];
-    	printf("[%i %s %.1f]  ", t->type, t->str, t->value);
+    	printf("[%i %s %.1f] ", t->type, t->str, t->value);
     }
 
     putchar('\n');
