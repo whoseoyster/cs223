@@ -165,8 +165,6 @@ int main(int argc, char **argv) {
           StackPop(&st1);
           free(top->str);
           free(top);
-          free(t->str);
-          free(t);
         } else if (strcmp(tok, "+") == 0) {
           t->type = OP1;
         } else if (strcmp(tok, "-") == 0) {
@@ -205,6 +203,12 @@ int main(int argc, char **argv) {
           printf("Token:%s: type: %i value: %.2f\n", t->str, t->type, t->value);
           StackPrint(&st1);
         }
+
+        if (t->type == 4) {
+          free(t->str);
+          free(t);
+        }
+
         tok = strtok(NULL, " ");
       }
       
