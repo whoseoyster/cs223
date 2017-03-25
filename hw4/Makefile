@@ -2,7 +2,7 @@
 
 CC     = gcc
 #CFLAGS = -g3 -std=gnu99 -pedantic -Wall
-CFLAGS = -std=c99 -pedantic -Wall -std=gnu99
+CFLAGS = -std=c99 -pedantic -Wall -std=gnu99 -g
 HWK    = /c/cs223/hw4
 
 Calc:  Calc.o stack.o stack.o
