@@ -86,7 +86,7 @@ void calculate(stackT *stackP) {
     free(oper2);
   }
 
-  stackP->top = -1;
+  // stackP->top = -1;
 
   printf("Result: %.2f\n", StackTop(&stO)->value);
   StackDestroy(&stO);
