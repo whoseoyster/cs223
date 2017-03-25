@@ -78,7 +78,7 @@ void calculate(stackT *stackP) {
     char str[300];
     sprintf(str, "%d", (int)result );
 
-    oper1->str = strdup(str);
+    oper1->str = str;
     StackPush(&stO, oper1);
     free(oper2->str);
     free(oper2);
@@ -112,6 +112,7 @@ int main(int argc, char **argv) {
   Token tk;
   Token t;
   Token top;
+  char *str;
 
   while (true) {
     while((c = getchar()) != '\n' && c != EOF) {
@@ -143,8 +144,12 @@ int main(int argc, char **argv) {
         t = mymalloc(sizeof(struct token));
         assert(t);
 
+        str = calloc(sizeof(char)*strlen(tok));
+        assert(char);
+        strncpy(str, tok, strlen(tok));
+
         val = 0;
-        t->str = strdup(tok);
+        t->str = str;
         t->value = val;
 
         if (strcmp(tok, "(") == 0) {
