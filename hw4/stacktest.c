@@ -49,11 +49,11 @@ int main(int argc, char **argv){
     StackPush(&st, tok);
   }
 
-  // StackPrint(&st);
-  // tok = StackTop(&st);
-  // StackPop(&st);
-  // free(tok->str);
-  // free(tok);
+  StackPrint(&st);
+  tok = StackTop(&st);
+  StackPop(&st);
+  free(tok->str);
+  free(tok);
 
   printf("BOOO\n");
 

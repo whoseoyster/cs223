@@ -1,18 +1,24 @@
-ESTIMATE of time to complete assignment: 8 hours
+ESTIMATE of time to complete assignment: 7 hours
 
       Time     Time
 Date  Started  Spent Work completed
 ----  -------  ----  --------------
-1/27   2:15pm  0:45  Read assignment and relevant material in K&R.
-					 Read up on malloc and pointers.
-1/27   4:15pm  2:00  Implemented a working solution for the -next flag.
-					 Fixed multiple memory allocation bugs.
+3/22   2:15pm  0:45  Read assignment and relevant material in K&R.
+					 Read up on stacks and RPN and the shunting yard algorithm.
+3/22   4:15pm  2:00  Implemented a working solution for stack with print, init,
+					 push, pop, destroy, count, top, full and empty functions.
+3/23   7:00pm  2:00  Calc.c stdin token splitting implemented. Stacks for reading input
+					 and converting to RPN using shunting yard algorithm completed.
+3/24   5:30pm  1:00  Implemented a working solution for calculating the resultant value
+					 using the RPN method.
+3/25   4:30pm  2:00  Bug fixes (mostly all related to malloc, free and failing gracefully).
+
                ----
-               2:45  TOTAL time spent
+               6:45  TOTAL time spent
 
 I discussed my solution with: nobody.
 
 *A brief discussion of the major difficulties encountered*
 
-- creating a dynamic array using Heap memory
-- figuring out how to process the appropriate cmd line arguments for addition
+The toughest part of this homework was to get the program to fail gracefully. In many instances,
+I was unnecessarily allocating memory for tokens -- valgrind would throw memory loss errors. Another difficulty was with strdup and its own memory. Correcting StackDestroy took some effort, because I was not sure what exactly needed to be freed on each occasion. The actual implementation of the shunting yard algorithm (for which I used an extra stack -- the output buffer held the complete RPN array) and the calculation using RPN was very straightforward. Most issues definitely arose from memory loss and string duplication. 

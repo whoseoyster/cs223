@@ -40,9 +40,6 @@ void calculate(stackT *stackP) {
   Token res;
 
   for(int i=0;i<s;i++) {
-  
-    // t1 = mymalloc(sizeof(struct token));
-    // assert(t1);
 
     t1 = stackP->contents[i];
 
@@ -81,7 +78,7 @@ void calculate(stackT *stackP) {
     assert(res);
 
     res->value = result;
-    char str[1024];
+    char str[1030];
     sprintf(str, "%.1f", result );
 
     res->str = strdup(str);
@@ -110,7 +107,7 @@ int main(int argc, char **argv) {
     debugflag = true;
   }
   //declare input processing variables
-  char in[1024];
+  char in[1030];
   char c;
   bool d = false;
   int i=0;
@@ -119,7 +116,7 @@ int main(int argc, char **argv) {
   char *tok;
   double val = 0;
 
-  memset(in, '\0', 1024);
+  memset(in, '\0', 1030);
 
   Token tk;
   Token t;
@@ -239,7 +236,7 @@ int main(int argc, char **argv) {
 
       calculate(&st2);
 
-      memset(in, '\0', 1024);
+      memset(in, '\0', 1030);
 
     }
     if (kill) {
