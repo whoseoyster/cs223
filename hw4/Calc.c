@@ -92,6 +92,11 @@ void calculate(stackT *stackP) {
 
   stackP->top = -1;
 
+  if (StackCount(&stO) > 1) {
+    fprintf(stderr, "Fatal error: Too many operands\n");
+    exit(1);
+  }
+
   printf("Result: %.2f\n", StackTop(&stO)->value);
   StackDestroy(&stO);
   StackDestroy(stackP);
