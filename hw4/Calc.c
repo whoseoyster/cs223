@@ -74,6 +74,8 @@ void calculate(stackT *stackP) {
     free(oper2);
     free(oper1->str);
     free(oper1);
+    free(t1->str);
+    free(t1);
 
     res = mymalloc(sizeof(struct token));
     assert(res);
