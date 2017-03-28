@@ -135,7 +135,7 @@ int main(int argc, char **argv) {
     }
 
     for(int j=0; j<1030; j++) {
-      if (in[j] == '+' || in[j] == '-' || in[j] == '/' || in[j] == '*' || '0' <= in[j] <= '9' || in[j] == '(' || in[j] == ')' || in[j] == ' ' || in[j] == '\n') {
+      if (in[j] == '+' || in[j] == '-' || in[j] == '/' || in[j] == '*' || ('0' <= in[j] && in[j] <= '9') || in[j] == '(' || in[j] == ')' || in[j] == ' ' || in[j] == '\n') {
         continue;
       } else {
         debugflag = false;
