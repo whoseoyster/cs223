@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
       }
       i++;
       if (debugflag && c == '\n') {
-        printf("Input: %s\n", in + z);
+        // printf("Input: %s\n", in + z);
         z = i;
       }
       d = true;
