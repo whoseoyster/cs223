@@ -88,6 +88,8 @@ int main(int argc, char **argv) {
       d = false;
       i=0;
 
+      printf("boooo %s\n", in);
+
       tok = strtok(in, " ");
 
       struct node * root = makeNode("**root**");
