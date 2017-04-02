@@ -113,6 +113,7 @@ int main(int argc, char **argv) {
         if (avl) {
           aoldnode = treeContains(aroot, tok);
           if (aoldnode) {
+            printf("lube\n");
             aoldnode->count++;
             if (aoldnode->count == threshold) {
               printf("Blue balls\n");
