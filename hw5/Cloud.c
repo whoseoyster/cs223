@@ -117,9 +117,9 @@ int main(int argc, char **argv) {
             if (aoldnode->count == threshold) {
               aoldnode->next = acloud;
               acloud = aoldnode;
-            } else {
-              atreeInsert(&aroot, tok);
             }
+          } else {
+            atreeInsert(&aroot, tok);
           }
         } else {
           oldnode = treeSearch(root, tok);
