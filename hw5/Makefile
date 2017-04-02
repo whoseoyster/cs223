@@ -2,7 +2,7 @@
 
 CC     = gcc
 # CFLAGS = -g3 -std=gnu99 -pedantic -Wall
-CFLAGS = -std=c99 -pedantic -Wall
+CFLAGS = -std=c99 -pedantic -Wall -g
 HWK    = /c/cs223/hw5
 
 Cloud:  Cloud.o btree.o
