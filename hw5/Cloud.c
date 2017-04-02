@@ -63,8 +63,6 @@ int main(int argc, char **argv) {
   bool d = false;
   int i=0;
   bool kill = false;
-  int height = 0;
-  int size = 0;
 
   char *tok;
 
@@ -149,24 +147,24 @@ int main(int argc, char **argv) {
 
   if (avl) {
     if (debugflag) {
-      printf("Tree height: %i\n", (atreeHeight(root)));
-      printf("Tree size: %i\n", (atreeSize(root)));
+      printf("Tree height: %i\n", (atreeHeight(aroot)));
+      printf("Tree size: %zu\n", (atreeSize(aroot)));
       treePrint(aroot);
     }
 
     if (pre) {
       printf("PREORDER\n");
-      aprintTreePre(root);
+      aprintTreePre(aroot);
       putchar('\n');
     }
     if (ino) {
       printf("INORDER\n");
-      aprintTreeIn(root);
+      aprintTreeIn(aroot);
       putchar('\n');
     }
     if (post) {
       printf("POSTORDER\n");
-      aprintTreePost(root);
+      aprintTreePost(aroot);
       putchar('\n');
     }
 
