@@ -18,7 +18,7 @@
 #include <string.h>
 #include <assert.h>
 #include "/c/cs223/hw5/btree.h"
-// #include "avltree.h"
+#include "avltree.h"
 
 int main(int argc, char **argv) {
   //debug statement
@@ -63,13 +63,19 @@ int main(int argc, char **argv) {
   bool d = false;
   int i=0;
   bool kill = false;
+  int height = 0;
+  int size = 0;
 
   char *tok;
 
-  struct node * root = makeNode("**root**");
+  struct node * root = 0;
+  if (!avl) 
+    root = makeNode("**root**");
   struct node * cloud = 0;
   struct node * oldnode = 0;
-  // struct tree *root = TREE_EMPTY;
+  struct tree * aroot = TREE_EMPTY;
+  struct tree * acloud = 0;
+  struct tree * aoldnode = 0;
 
   memset(in, '\0', 1030);
 
@@ -106,15 +112,28 @@ int main(int argc, char **argv) {
         }
         if (skip) continue;
 
-        oldnode = treeSearch(root, tok);
-        if (oldnode) {
-          oldnode->count++;
-          if (oldnode->count == threshold) {
-            oldnode->next = cloud;
-            cloud = oldnode;
+        if (avl) {
+          aoldnode = atreeContains(aroot, tok);
+          if (aoldnode) {
+            aoldnode->count++;
+            if (aoldnode->count == threshold) {
+              aoldnode->next = acloud;
+              acloud = aoldnode;
+            } else {
+              atreeInsert(aroot, tok);
+            }
           }
         } else {
-          treeInsert(root, tok);
+          oldnode = treeSearch(root, tok);
+          if (oldnode) {
+            oldnode->count++;
+            if (oldnode->count == threshold) {
+              oldnode->next = cloud;
+              cloud = oldnode;
+            }
+          } else {
+            treeInsert(root, tok);
+          }
         }
 
         tok = strtok(NULL, " ");
@@ -128,43 +147,82 @@ int main(int argc, char **argv) {
       }
     }
 
-  if (debugflag) {
-    printf("Tree height: %i\n", (treeHeight(root)));
-    printf("Tree size: %i\n", (treeSize(root)));
-  }
-
-  if (pre) {
-    printf("PREORDER\n");
-    printTreePre(root);
-    putchar('\n');
-  }
-  if (ino) {
-    printf("INORDER\n");
-    printTreeIn(root);
-    putchar('\n');
-  }
-  if (post) {
-    printf("POSTORDER\n");
-    printTreePost(root);
-    putchar('\n');
-  }
-
-  if (cloud == 0) {
-    printf("No words seen %i times.\n", threshold);
-  } else {
-    if (!html) 
-      printf("The Word Cloud:\n");
-    for (oldnode = cloud; oldnode != 0; oldnode = oldnode->next) {
-      if (html) {
-        printf("<span style=\"font-size: %ipx\"> %s </span>\n", oldnode->count, oldnode->key);
-      } else {
-        printf("[%i] %s [%i]\n", i, oldnode->key, oldnode->count);
-      }
-      i++;
+  if (avl) {
+    if (debugflag) {
+      printf("Tree height: %i\n", (atreeHeight(root)));
+      printf("Tree size: %i\n", (atreeSize(root)));
+      treePrint(aroot);
     }
-  }
 
-  treeDestroy(root);
+    if (pre) {
+      printf("PREORDER\n");
+      aprintTreePre(root);
+      putchar('\n');
+    }
+    if (ino) {
+      printf("INORDER\n");
+      aprintTreeIn(root);
+      putchar('\n');
+    }
+    if (post) {
+      printf("POSTORDER\n");
+      aprintTreePost(root);
+      putchar('\n');
+    }
+
+    if (acloud == 0) {
+      printf("No words seen %i times.\n", threshold);
+    } else {
+      if (!html) 
+        printf("The Word Cloud:\n");
+      for (aoldnode = acloud; aoldnode != 0; aoldnode = aoldnode->next) {
+        if (html) {
+          printf("<span style=\"font-size: %ipx\"> %s </span>\n", aoldnode->count, aoldnode->key);
+        } else {
+          printf("[%i] %s [%i]\n", i, aoldnode->key, aoldnode->count);
+        }
+        i++;
+      }
+    }
+    atreeDestroy(&aroot);
+  } else {
+    if (debugflag) {
+      printf("Tree height: %i\n", (treeHeight(root)));
+      printf("Tree size: %i\n", (treeSize(root)));
+    }
+
+    if (pre) {
+      printf("PREORDER\n");
+      printTreePre(root);
+      putchar('\n');
+    }
+    if (ino) {
+      printf("INORDER\n");
+      printTreeIn(root);
+      putchar('\n');
+    }
+    if (post) {
+      printf("POSTORDER\n");
+      printTreePost(root);
+      putchar('\n');
+    }
+
+    if (cloud == 0) {
+      printf("No words seen %i times.\n", threshold);
+    } else {
+      if (!html) 
+        printf("The Word Cloud:\n");
+      for (oldnode = cloud; oldnode != 0; oldnode = oldnode->next) {
+        if (html) {
+          printf("<span style=\"font-size: %ipx\"> %s </span>\n", oldnode->count, oldnode->key);
+        } else {
+          printf("[%i] %s [%i]\n", i, oldnode->key, oldnode->count);
+        }
+        i++;
+      }
+    }
+    treeDestroy(root);
+  }
 
   return 0;
 

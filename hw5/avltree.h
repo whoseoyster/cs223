@@ -16,7 +16,7 @@
 struct tree {
     /* we'll make this an array so that we can make some operations symmetric */
     struct tree *child[TREE_NUM_CHILDREN];
-    int key;
+    char * key;
     int count;
     int height;    /* height of this node */
     size_t size;   /* size of subtree rooted at this node */
@@ -29,19 +29,19 @@ struct tree {
 void treeDestroy(struct tree **root);
 
 /* insert an element into a tree pointed to by root */
-void treeInsert(struct tree **root, int newElement);
+void treeInsert(struct tree **root, char * newElement);
 
 /* return 1 if target is in tree, 0 otherwise */
 /* we allow root to be modified to allow for self-balancing trees */
-int treeContains(const struct tree *root, int target);
+struct tree * treeContains(struct tree *root, char * target);
 
 /* delete minimum element from the tree and return its key */
 /* do not call this on an empty tree */
-int treeDeleteMin(struct tree **root);
+char * treeDeleteMin(struct tree **root);
 
 /* delete target from the tree */
 /* has no effect if target is not in tree */
-void treeDelete(struct tree **root, int target);
+void treeDelete(struct tree **root, char * target);
 
 /* return height of tree */
 int treeHeight(const struct tree *root);
@@ -53,8 +53,14 @@ size_t treeSize(const struct tree *root);
 void treePrint(const struct tree *root);
 
 /* return the number of elements in tree less than target */
-size_t treeRank(const struct tree *root, int target);
+size_t treeRank(const struct tree *root, char * target);
 
 /* return an element with the given rank */
 /* rank must be less than treeSize(root) */
-int treeUnrank(const struct tree *root, size_t rank);
+char * treeUnrank(const struct tree *root, size_t rank);
+
+// print the contents of the tree in preorder, inorder, and postorder,
+// respectively.
+void aprintTreePre(struct tree * t);
+void aprintTreeIn(struct tree * t);
+void aprintTreePost(struct tree * t);
