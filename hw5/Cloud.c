@@ -75,9 +75,10 @@ int main(int argc, char **argv) {
     while((c = getchar()) != EOF) {
       if (c != '\n') {
         in[i] = c;
-        i++;
+      } else {
+        in[i] = ' ';
       }
-      
+      i++;
       if (debugflag && c == '\n') {
         printf("Input: %s\n", in + z);
         z = i;
