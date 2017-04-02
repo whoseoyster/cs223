@@ -62,6 +62,7 @@ int main(int argc, char **argv) {
   char c;
   bool d = false;
   int i=0;
+  int z=0;
   bool kill = false;
 
   char *tok;
@@ -71,15 +72,18 @@ int main(int argc, char **argv) {
   if (!feof(stdin)) kill=true;
 
   while (true) {
-    while((c = getchar()) != '\n' && c != EOF) {
+    while((c = getchar()) != EOF) {
       in[i] = c;
+      
       i++;
+      if (debugflag && c == '\n') {
+        printf("Input: %s\n", in + z);
+        z = i;
+      }
       d = true;
     }
 
     if (d) {
-      if (debugflag)
-        printf("Input: %s\n", in);
       d = false;
       i=0;
 
