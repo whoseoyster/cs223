@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
   if (!feof(stdin)) kill=true;
 
   while (true) {
-    while((c = getchar()) != EOF) {
+    while((c = getchar()) != '\n' && c != EOF) {
       in[i] = c;
       i++;
       d = true;
