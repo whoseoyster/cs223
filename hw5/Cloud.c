@@ -62,27 +62,23 @@ int main(int argc, char **argv) {
   char c;
   bool d = false;
   int i=0;
-  int z=0;
   bool kill = false;
 
   char *tok;
+
+  struct node * root = makeNode("**root**");
+  struct node * cloud = 0;
+  struct node * oldnode = 0;
+  // struct tree *root = TREE_EMPTY;
 
   memset(in, '\0', 1030);
 
   if (!feof(stdin)) kill=true;
 
   while (true) {
-    while((c = getchar()) != EOF) {
-      if (c != '\n') {
-        in[i] = c;
-      } else {
-        in[i] = ' ';
-      }
+    while((c = getchar()) != '\n' && c != EOF) {
+      in[i] = c;
       i++;
-      if (debugflag && c == '\n') {
-        printf("Input: %s\n", in + z);
-        z = i;
-      }
       d = true;
     }
 
@@ -90,12 +86,10 @@ int main(int argc, char **argv) {
       d = false;
       i=0;
 
-      tok = strtok(in, " ");
+      if (debugflag) {
+        printf("Input: %s\n", in);
 
-      struct node * root = makeNode("**root**");
-      struct node * cloud = 0;
-      struct node * oldnode = 0;
-      // struct tree *root = TREE_EMPTY;
+      tok = strtok(in, " ");
 
       while( tok != NULL ) 
       {
@@ -126,50 +120,51 @@ int main(int argc, char **argv) {
         tok = strtok(NULL, " ");
       }
 
-      if (debugflag) {
-        printf("Tree height: %i\n", (treeHeight(root)));
-        printf("Tree size: %i\n", (treeSize(root)));
-      }
-
-      if (pre) {
-        printf("PREORDER\n");
-        printTreePre(root);
-        putchar('\n');
-      }
-      if (ino) {
-        printf("INORDER\n");
-        printTreeIn(root);
-        putchar('\n');
-      }
-      if (post) {
-        printf("POSTORDER\n");
-        printTreePost(root);
-        putchar('\n');
-      }
-
-      if (cloud == 0) {
-        printf("No words seen %i times.\n", threshold);
-      } else {
-        if (!html) 
-          printf("The Word Cloud:\n");
-        for (oldnode = cloud; oldnode != 0; oldnode = oldnode->next) {
-          if (html) {
-            printf("<span style=\"font-size: %ipx\"> %s </span>\n", oldnode->count, oldnode->key);
-          } else {
-            printf("[%i] %s [%i]\n", i, oldnode->key, oldnode->count);
-          }
-          i++;
-        }
-      }
-
       i=0;
       memset(in, '\0', 1030);
-      treeDestroy(root);
     }
     if (kill) {
       if (feof(stdin)) break;
     }
   }
+
+  if (debugflag) {
+    printf("Tree height: %i\n", (treeHeight(root)));
+    printf("Tree size: %i\n", (treeSize(root)));
+  }
+
+  if (pre) {
+    printf("PREORDER\n");
+    printTreePre(root);
+    putchar('\n');
+  }
+  if (ino) {
+    printf("INORDER\n");
+    printTreeIn(root);
+    putchar('\n');
+  }
+  if (post) {
+    printf("POSTORDER\n");
+    printTreePost(root);
+    putchar('\n');
+  }
+
+  if (cloud == 0) {
+    printf("No words seen %i times.\n", threshold);
+  } else {
+    if (!html) 
+      printf("The Word Cloud:\n");
+    for (oldnode = cloud; oldnode != 0; oldnode = oldnode->next) {
+      if (html) {
+        printf("<span style=\"font-size: %ipx\"> %s </span>\n", oldnode->count, oldnode->key);
+      } else {
+        printf("[%i] %s [%i]\n", i, oldnode->key, oldnode->count);
+      }
+      i++;
+    }
+  }
+
+  treeDestroy(root);
 
   return 0;
 
