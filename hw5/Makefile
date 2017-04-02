@@ -16,7 +16,7 @@ Cloud.o: Cloud.c
 btreetest: btreetest.o btree.o
 	${CC} ${CFLAGS} -o btreetest btreetest.o btree.o
 
-btreetest.o: btreetest.c /c/cs223/hw5/btree.h 
+btreetest.o: btreetest.c btree.h 
 	${CC} ${CFLAGS} -c btreetest.c
 
 btreetestargs: btreetestargs.o btree.o

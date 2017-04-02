@@ -27,6 +27,32 @@ int cmpfunc(const void *p1, const void *p2) {
 //     return true;
 // }
 
+struct node {
+  char * key;
+  int count;
+  struct node *left;  /* left child */
+  struct node *right; /* right child */
+  struct node *next;  /* link to other nodes over threshold for Cloud */
+  // option for more efficient height calculation
+  int height;
+  struct node *parent;  
+};
+
+// create and initialize a node
+struct node *makeNode(char * key) {
+  struct node *a;
+
+  a->key = key;
+  a->count = 0;
+  a->left = 0;
+  a->right = 0;
+  a->next = 0;
+  a->height = 0;
+  a->parent = 0;
+
+  return a;
+}
+
 int main(int argc, char ** argv) {
   
   // char word[4] = "rut";
@@ -42,18 +68,15 @@ int main(int argc, char ** argv) {
   // }
 
   char *foo;
-  foo = malloc(20);
-  assert(foo);
-  printf("1 %s\n", foo);
-  memset(foo, 'x', 22);
-  printf("2 %s\n", foo);
-  strncpy(foo, "you are", 7);
-  printf("3 %s\n", foo);
-  char *bar = malloc(20);
-  bar = foo;
+  char *bar;
+  int res;
 
-  free(foo);
-  printf("bar: %s\n", bar);
+  foo = "abc";
+  bar = "abd";
+
+  struct node *blah = makeNode(foo);
+
+  printf("%s\n", blah->key);
 
   return 0;
 }
