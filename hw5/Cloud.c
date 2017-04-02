@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
       d = false;
       i=0;
 
-      if (debugflag) {
+      if (debugflag)
         printf("Input: %s\n", in);
 
       tok = strtok(in, " ");
@@ -123,10 +123,10 @@ int main(int argc, char **argv) {
       i=0;
       memset(in, '\0', 1030);
     }
-    if (kill) {
-      if (feof(stdin)) break;
+      if (kill) {
+        if (feof(stdin)) break;
+      }
     }
-  }
 
   if (debugflag) {
     printf("Tree height: %i\n", (treeHeight(root)));
