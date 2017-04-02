@@ -1,5 +1,7 @@
 #include "/c/cs223/hw5/btree.h"
 
+#define _GNU_SOURCE 1
+
 // create and initialize a node
 struct node *makeNode(char * key) {
   struct node *a;
@@ -7,7 +9,7 @@ struct node *makeNode(char * key) {
   a = malloc(sizeof(*a));
   assert(a);
 
-  a->key = key;
+  a->key = strdup(key);
   a->count = 1;
   a->left = 0;
   a->right = 0;
@@ -138,7 +140,7 @@ void treeDestroy(struct node * tree)
 	if (tree->right != 0) {
 		treeDestroy(tree->right);
 	}
-	// free(tree->key);
+	free(tree->key);
 	free(tree);
 }
 

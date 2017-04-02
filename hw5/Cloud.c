@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
             cloud = oldnode;
           }
         } else {
-          treeInsert(root, strdup(tok));
+          treeInsert(root, tok);
         }
 
         tok = strtok(NULL, " ");
