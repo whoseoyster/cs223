@@ -73,10 +73,11 @@ int main(int argc, char **argv) {
 
   while (true) {
     while((c = getchar()) != EOF) {
-      if (c != '\n')
+      if (c != '\n') {
         in[i] = c;
+        i++;
+      }
       
-      i++;
       if (debugflag && c == '\n') {
         printf("Input: %s\n", in + z);
         z = i;
