@@ -20,6 +20,7 @@ struct tree {
     int count;
     int height;    /* height of this node */
     size_t size;   /* size of subtree rooted at this node */
+    struct tree *next; /* for cloud */
 };
 
 #define TREE_EMPTY (0)

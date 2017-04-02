@@ -111,7 +111,7 @@ int main(int argc, char **argv) {
         if (skip) continue;
 
         if (avl) {
-          aoldnode = atreeContains(aroot, tok);
+          aoldnode = treeContains(aroot, tok);
           if (aoldnode) {
             aoldnode->count++;
             if (aoldnode->count == threshold) {
