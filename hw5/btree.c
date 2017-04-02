@@ -138,7 +138,7 @@ void treeDestroy(struct node * tree)
 	if (tree->right != 0) {
 		treeDestroy(tree->right);
 	}
-	free(tree->key);
+	// free(tree->key);
 	free(tree);
 }
 
