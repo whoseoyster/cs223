@@ -118,7 +118,7 @@ int main(int argc, char **argv) {
               aoldnode->next = acloud;
               acloud = aoldnode;
             } else {
-              atreeInsert(aroot, tok);
+              atreeInsert(&aroot, tok);
             }
           }
         } else {
