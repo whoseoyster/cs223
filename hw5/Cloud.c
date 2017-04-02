@@ -115,6 +115,7 @@ int main(int argc, char **argv) {
           if (aoldnode) {
             aoldnode->count++;
             if (aoldnode->count == threshold) {
+              printf("Blue balls\n");
               aoldnode->next = acloud;
               acloud = aoldnode;
             }
