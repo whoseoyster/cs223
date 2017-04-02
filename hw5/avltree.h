@@ -26,10 +26,10 @@ struct tree {
 #define TREE_EMPTY_HEIGHT (-1)
 
 /* free all elements of a tree, replacing it with TREE_EMPTY */
-void treeDestroy(struct tree **root);
+void atreeDestroy(struct tree **root);
 
 /* insert an element into a tree pointed to by root */
-void treeInsert(struct tree **root, char * newElement);
+void atreeInsert(struct tree **root, char * newElement);
 
 /* return 1 if target is in tree, 0 otherwise */
 /* we allow root to be modified to allow for self-balancing trees */
@@ -44,10 +44,10 @@ char * treeDeleteMin(struct tree **root);
 void treeDelete(struct tree **root, char * target);
 
 /* return height of tree */
-int treeHeight(const struct tree *root);
+int atreeHeight(const struct tree *root);
 
 /* return size of tree */
-size_t treeSize(const struct tree *root);
+size_t atreeSize(const struct tree *root);
 
 /* pretty-print the contents of a tree */
 void treePrint(const struct tree *root);
