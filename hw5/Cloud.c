@@ -80,7 +80,10 @@ int main(int argc, char **argv) {
 
   memset(in, '\0', 1030);
 
-  if (!feof(stdin)) kill=true;
+  if (!feof(stdin)) {
+    kill=true;
+    printf("KILL\n");
+  }
 
   while (true) {
     while((c = getchar()) != '\n' && c != EOF) {
@@ -89,12 +92,12 @@ int main(int argc, char **argv) {
       d = true;
     }
 
-    if (debugflag)
-        printf("Input: %s\n", in);
-
     if (d) {
       d = false;
       i=0;
+
+      if (debugflag)
+        printf("Input: %s\n", in);
 
       tok = strtok(in, " ");
 
