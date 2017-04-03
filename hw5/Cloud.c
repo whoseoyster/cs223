@@ -20,6 +20,8 @@
 
 #define _GNU_SOURCE 1
 
+#define ungetchar(c)  ungetc(c, stdin)    // unread char read from stdin
+
 int main(int argc, char **argv) {
   //debug statement
   bool debugflag = false;
@@ -82,10 +84,10 @@ int main(int argc, char **argv) {
 
   if (!feof(stdin)) {
     kill=true;
-    if (getchar() == EOF) {
+    if ((c = getchar()) == EOF) {
       printf("Input: \n");
     } else {
-      ungetchar();
+      ungetchar(c);
     }
   }
 
