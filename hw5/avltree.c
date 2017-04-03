@@ -197,10 +197,13 @@ atreeInsert(struct tree **root, char * newElement)
 struct tree *
 treeContains(struct tree *t, char * target)
 {
+    if(t == 0 || t == NULL) {
+        return 0;
+    }
     if(t->child[LEFT] != 0) {
         return treeContains(t->child[LEFT], target);
     }
-    
+
     while(t && strcmp(t->key, target) != 0) {
         int chld = 0;
         if (strcmp(t->key, target) > 0) {
