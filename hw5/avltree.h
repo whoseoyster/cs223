@@ -32,6 +32,8 @@ struct tree {
 #define TREE_EMPTY (0)
 #define TREE_EMPTY_HEIGHT (-1)
 
+char *strdup(const char *s);
+
 /* free all elements of a tree, replacing it with TREE_EMPTY */
 void atreeDestroy(struct tree **root);
 
