@@ -1,6 +1,6 @@
 #include "/c/cs223/hw5/btree.h"
 
-#define _GNU_SOURCE 1
+#define _POSIX_C_SOURCE 200809L
 
 char *strdup(const char *s);
 
