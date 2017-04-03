@@ -158,7 +158,19 @@ atreeDestroy(struct tree **root)
     }
 }
 
-
+/* return 1 if target is in tree, 0 otherwise */
+struct tree *
+treeContains(struct tree *t, char * target)
+{
+    while(t && strcmp(t->key, target) != 0) {
+        int chld = 0;
+        if (strcmp(t->key, target) < 0) {
+            chld = 1;
+        }
+        t = t->child[chld];
+    }
+    return t;
+}
 
 /* insert an element into a tree pointed to by root */
 void
@@ -191,28 +203,6 @@ atreeInsert(struct tree **root, char * newElement)
     /* fix the aggregate data */
     treeFix(*root);
     treeRebalance(root);
-}
-
-/* return 1 if target is in tree, 0 otherwise */
-struct tree *
-treeContains(struct tree *t, char * target)
-{
-    if(t == 0 || t == NULL) {
-        return 0;
-    }
-    if(t->child[LEFT] != 0) {
-        return treeContains(t->child[LEFT], target);
-    }
-
-    while(t && strcmp(t->key, target) != 0) {
-        int chld = 0;
-        if (strcmp(t->key, target) > 0) {
-            chld = 1;
-        }
-        t = t->child[chld];
-    }
-
-    return t;
 }
 
 /* delete minimum element from the tree and return its key */
@@ -419,47 +409,9 @@ aprintTreePost(struct tree * t)
 //     // assert(treeContains(root, "a"));
 //     treePrint(root);
 //     puts("---");
-//     // assert(!treeContains(root, "a"));
-//     atreeInsert(&root, "a");
-//     // assert(treeContains(root, "a"));
-//     treePrint(root);
-//     puts("---");
-//     // assert(!treeContains(root, "c"));
-//     atreeInsert(&root, "c");
-//     // assert(treeContains(root, "c"));
-//     treePrint(root);
-//     puts("---");
-//     // assert(!treeContains(root, "b"));
-//     atreeInsert(&root, "b");
-//     atreeInsert(&root, "f");
-//     atreeInsert(&root, "g");
-//     atreeInsert(&root, "u");
-//     atreeInsert(&root, "o");
-//     // assert(treeContains(root, "b"));
-//     treePrint(root);
-//     puts("---");
-//     // assert(!treeContains(root, "d"));
-//     atreeInsert(&root, "d");
-//     // assert(treeContains(root, "d"));
-//     treePrint(root);
-//     puts("---");
-//     // assert(!treeContains(root, "b"));
-//     atreeInsert(&root, "b");
-//     // assert(treeContains(root, "b"));
-//     treePrint(root);
-//     puts("---");
-//     // assert(!treeContains(root, "b"));
-//     atreeInsert(&root, "b");
-//     // assert(treeContains(root, "b"));
-//     treePrint(root);
-//     puts("---");
-//     // assert(!treeContains(root, "a"));
-//     atreeInsert(&root, "a");
-//     // assert(treeContains(root, "a"));
-//     treePrint(root);
-//     puts("---");
 
-//     printf("bitch: %i\n", (treeContains(root, "a"))->count);
+//     // printf("bitch: %s\n", (treeContains(root, "a"))->key);
+//     treeContains(root, "a");
 
 //     printf("Tree height: %i\n", atreeHeight(root));
 //     printf("Tree size: %zu\n", atreeSize(root));

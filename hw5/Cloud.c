@@ -111,14 +111,10 @@ int main(int argc, char **argv) {
         if (skip) continue;
 
         if (avl) {
-          printf("black\n");
           aoldnode = treeContains(aroot, tok);
-          printf("white\n");
           if (aoldnode) {
-            printf("lube\n");
             aoldnode->count++;
             if (aoldnode->count == threshold) {
-              printf("Blue balls\n");
               aoldnode->next = acloud;
               acloud = aoldnode;
             }
