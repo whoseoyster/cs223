@@ -84,7 +84,7 @@ int main(int argc, char **argv) {
 
   if (!feof(stdin)) {
     kill=true;
-    if ((c = getchar()) == EOF) {
+    if ((c = getchar()) == '') {
       printf("Input: \n");
     } else {
       ungetchar(c);
