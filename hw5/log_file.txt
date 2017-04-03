@@ -1,0 +1,20 @@
+ESTIMATE of time to complete assignment: 7 hours
+
+      Time     Time
+Date  Started  Spent Work completed
+----  -------  ----  --------------
+4/01   2:15pm  1:00  Read assignment and relevant material in K&R.
+					 Read up on binary trees and went through old command line argument parsers.
+					 Began implementation of binary tree
+4/01   7:00pm  2:00  Completed all functions in btree.c. Began Cloud.c, wrote basic working version 					 and accounted for memory leaks.
+4/02   12:30pm 2:00  Implemented a working solution for Cloud using linked lists and binary trees. 	   					 Inorder, preorder and postorder worked correctly. Started AVL implementation.
+4/02   10:00pm 2:00  Bug fixes and completed AVL option.
+
+               ----
+               7:00  TOTAL time spent
+
+I discussed my solution with: nobody.
+
+*A brief discussion of the major difficulties encountered*
+
+The toughest part of this homework was to get the balanced binary tree working correctly. Searching through the binary tree posed challenges in that getting from the root of the tree to the expected location didn't work correctly. Otherwise, the homework was not overly difficult. Valgrind issues were not a problem. Printing the input as separate lines was a bit tricky, but an easy workaround was to print after each new line character. Ignoring non-alpha tokens was also easy. Creating a new linked list for the words that met the threshold frequency was slightly confusing, as it was not clear whether I should have created a new struct or just used the 'next' element from the existing node struct.
