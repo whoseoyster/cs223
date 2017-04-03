@@ -35,6 +35,9 @@ int main(int argc, char **argv) {
       debugflag = true;
     } else if (strcmp(argv[l], "-threshold") == 0) {
       l++;
+      if (l >= argc) {
+        fprintf(stderr, "Missing threshold argument on command line.\n");
+      }
       int v = atoi(argv[l]);
       if (v == 0 || v == 1) {
         fprintf(stderr, "Invalid threshold value: %s\n", argv[l]);
@@ -86,12 +89,12 @@ int main(int argc, char **argv) {
       d = true;
     }
 
+    if (debugflag)
+        printf("Input: %s\n", in);
+
     if (d) {
       d = false;
       i=0;
-
-      if (debugflag)
-        printf("Input: %s\n", in);
 
       tok = strtok(in, " ");
 
