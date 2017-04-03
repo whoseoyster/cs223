@@ -2,6 +2,8 @@
 
 #define _GNU_SOURCE 1
 
+char *strdup(const char *s);
+
 // create and initialize a node
 struct node *makeNode(char * key) {
   struct node *a;
