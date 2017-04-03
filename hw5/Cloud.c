@@ -9,8 +9,6 @@
 
  */
 
-#define _GNU_SOURCE 1
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -19,6 +17,8 @@
 #include <assert.h>
 #include "/c/cs223/hw5/btree.h"
 #include "avltree.h"
+
+#define _GNU_SOURCE 1
 
 int main(int argc, char **argv) {
   //debug statement

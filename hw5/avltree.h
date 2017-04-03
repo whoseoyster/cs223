@@ -9,11 +9,15 @@
  * Operations that do not update the tree get a const struct tree *.
  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <stdint.h>
+#include <string.h>
+
 #define LEFT (0)
 #define RIGHT (1)
 #define TREE_NUM_CHILDREN (2)
-
-#define _GNU_SOURCE 1
 
 struct tree {
     /* we'll make this an array so that we can make some operations symmetric */
