@@ -17,7 +17,7 @@ struct node *makeNode(char * key) {
   a->height = 0;
   a->parent = 0;
 
-  return a;
+  return a; 
 }
 
 // see Aspnes
