@@ -13,6 +13,8 @@
 #define RIGHT (1)
 #define TREE_NUM_CHILDREN (2)
 
+#define _GNU_SOURCE 1
+
 struct tree {
     /* we'll make this an array so that we can make some operations symmetric */
     struct tree *child[TREE_NUM_CHILDREN];
