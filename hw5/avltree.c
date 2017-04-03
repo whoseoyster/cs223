@@ -197,7 +197,11 @@ atreeInsert(struct tree **root, char * newElement)
 struct tree *
 treeContains(struct tree *t, char * target)
 {
-    while(t && t->key != target) {
+    if(t->child[LEFT] != 0) {
+        return treeContains(t->child[LEFT], target);
+    }
+    
+    while(t && strcmp(t->key, target) != 0) {
         int chld = 0;
         if (strcmp(t->key, target) > 0) {
             chld = 1;
@@ -380,108 +384,114 @@ aprintTreePost(struct tree * t)
     printf("%s [%i / %i] ", t->key, t->count, atreeHeight(t));
 }
 
-#ifdef TEST_MAIN
+// #ifdef TEST_MAIN
 
 
-int
-main(int argc, char **argv)
-{
-    // int i;
-    // const int n = 10;
-    struct tree *root = TREE_EMPTY;
+// int
+// main(int argc, char **argv)
+// {
+//     // int i;
+//     // const int n = 10;
+//     struct tree *root = TREE_EMPTY;
 
-    if(argc != 1) {
-        fprintf(stderr, "Usage: %s\n", argv[0]);
-        return 1;
-    }
-
-    // char test[10] = {'a', 'c', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'c'};
-
-//     for(i = 0; i < 10; i++) {
-//         assert(!treeContains(root, test[i]));
-//         atreeInsert(&root, test[i]);
-//         assert(treeContains(root, test[i]));
-// #ifdef PRINT_AFTER_OPERATIONS
-//         treePrint(root);
-//         puts("---");
-// #endif
+//     if(argc != 1) {
+//         fprintf(stderr, "Usage: %s\n", argv[0]);
+//         return 1;
 //     }
 
-    // assert(!treeContains(root, "a"));
-    atreeInsert(&root, "a");
-    // assert(treeContains(root, "a"));
-    treePrint(root);
-    puts("---");
-    // assert(!treeContains(root, "a"));
-    atreeInsert(&root, "a");
-    // assert(treeContains(root, "a"));
-    treePrint(root);
-    puts("---");
-    // assert(!treeContains(root, "c"));
-    atreeInsert(&root, "c");
-    // assert(treeContains(root, "c"));
-    treePrint(root);
-    puts("---");
-    // assert(!treeContains(root, "b"));
-    atreeInsert(&root, "b");
-    // assert(treeContains(root, "b"));
-    treePrint(root);
-    puts("---");
-    // assert(!treeContains(root, "d"));
-    atreeInsert(&root, "d");
-    // assert(treeContains(root, "d"));
-    treePrint(root);
-    puts("---");
-    // assert(!treeContains(root, "b"));
-    atreeInsert(&root, "b");
-    // assert(treeContains(root, "b"));
-    treePrint(root);
-    puts("---");
-    // assert(!treeContains(root, "b"));
-    atreeInsert(&root, "b");
-    // assert(treeContains(root, "b"));
-    treePrint(root);
-    puts("---");
-    // assert(!treeContains(root, "a"));
-    atreeInsert(&root, "a");
-    // assert(treeContains(root, "a"));
-    treePrint(root);
-    puts("---");
+//     // char test[10] = {'a', 'c', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'c'};
 
-    printf("Tree height: %i\n", atreeHeight(root));
-    printf("Tree size: %zu\n", atreeSize(root));
+// //     for(i = 0; i < 10; i++) {
+// //         assert(!treeContains(root, test[i]));
+// //         atreeInsert(&root, test[i]);
+// //         assert(treeContains(root, test[i]));
+// // #ifdef PRINT_AFTER_OPERATIONS
+// //         treePrint(root);
+// //         puts("---");
+// // #endif
+// //     }
 
-    aprintTreePre(root);
-    putchar('\n');
-    aprintTreeIn(root);
-    putchar('\n');
-    aprintTreePost(root);
-    putchar('\n');
+//     // assert(!treeContains(root, "a"));
+//     atreeInsert(&root, "a");
+//     // assert(treeContains(root, "a"));
+//     treePrint(root);
+//     puts("---");
+//     // assert(!treeContains(root, "a"));
+//     atreeInsert(&root, "a");
+//     // assert(treeContains(root, "a"));
+//     treePrint(root);
+//     puts("---");
+//     // assert(!treeContains(root, "c"));
+//     atreeInsert(&root, "c");
+//     // assert(treeContains(root, "c"));
+//     treePrint(root);
+//     puts("---");
+//     // assert(!treeContains(root, "b"));
+//     atreeInsert(&root, "b");
+//     atreeInsert(&root, "f");
+//     atreeInsert(&root, "g");
+//     atreeInsert(&root, "u");
+//     atreeInsert(&root, "o");
+//     // assert(treeContains(root, "b"));
+//     treePrint(root);
+//     puts("---");
+//     // assert(!treeContains(root, "d"));
+//     atreeInsert(&root, "d");
+//     // assert(treeContains(root, "d"));
+//     treePrint(root);
+//     puts("---");
+//     // assert(!treeContains(root, "b"));
+//     atreeInsert(&root, "b");
+//     // assert(treeContains(root, "b"));
+//     treePrint(root);
+//     puts("---");
+//     // assert(!treeContains(root, "b"));
+//     atreeInsert(&root, "b");
+//     // assert(treeContains(root, "b"));
+//     treePrint(root);
+//     puts("---");
+//     // assert(!treeContains(root, "a"));
+//     atreeInsert(&root, "a");
+//     // assert(treeContains(root, "a"));
+//     treePrint(root);
+//     puts("---");
 
-    // /* check ranks */
-    // for(i = 0; i < n; i++) {
-    //     assert(treeRank(root, i) == i);
-    //     assert(treeUnrank(root, i) == i);
-    // }
+//     printf("bitch: %i\n", (treeContains(root, "a"))->count);
 
-    // treeSanityCheck(root);
+//     printf("Tree height: %i\n", atreeHeight(root));
+//     printf("Tree size: %zu\n", atreeSize(root));
 
-//     /* now delete everything */
-//     for(i = 0; i < n; i++) {
-//         assert(treeContains(root, i));
-//         treeDelete(&root, i);
-//         assert(!treeContains(root, i));
-// #ifdef PRINT_AFTER_OPERATIONS
-//         treePrint(root);
-//         puts("---");
+//     aprintTreePre(root);
+//     putchar('\n');
+//     aprintTreeIn(root);
+//     putchar('\n');
+//     aprintTreePost(root);
+//     putchar('\n');
+
+//     // /* check ranks */
+//     // for(i = 0; i < n; i++) {
+//     //     assert(treeRank(root, i) == i);
+//     //     assert(treeUnrank(root, i) == i);
+//     // }
+
+//     // treeSanityCheck(root);
+
+// //     /* now delete everything */
+// //     for(i = 0; i < n; i++) {
+// //         assert(treeContains(root, i));
+// //         treeDelete(&root, i);
+// //         assert(!treeContains(root, i));
+// // #ifdef PRINT_AFTER_OPERATIONS
+// //         treePrint(root);
+// //         puts("---");
+// // #endif
+// //     }
+
+//     // treeSanityCheck(root);
+
+//     atreeDestroy(&root);
+
+//     return 0;
+// }
+
 // #endif
-//     }
-
-    // treeSanityCheck(root);
-
-    atreeDestroy(&root);
-
-    return 0;
-}
-
-#endif
