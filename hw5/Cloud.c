@@ -64,7 +64,10 @@ int main(int argc, char **argv) {
 
   //declare input processing variables
   char in[1030];
+  char *b = in;
   char c;
+  size_t bufsize = 1030;
+  size_t characters;
   bool d = false;
   int i=0;
   bool kill = false;
@@ -92,9 +95,13 @@ int main(int argc, char **argv) {
   }
 
   while (true) {
-    while((c = getchar()) != '\n' && c != EOF) {
-      in[i] = c;
-      i++;
+    // while((c = getchar()) != '\n' && c != EOF) {
+    //   in[i] = c;
+    //   i++;
+    //   d = true;
+    // }
+
+    if((characters = getline(&b, &bufsize, stdin))) {
       d = true;
     }
 
