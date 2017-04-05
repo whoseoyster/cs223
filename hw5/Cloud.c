@@ -84,11 +84,11 @@ int main(int argc, char **argv) {
 
   if (!feof(stdin)) {
     kill=true;
-    if ((c = getchar()) == EOF || c == '\n') {
-      printf("Input: \n");
-    } else {
-      ungetchar(c);
-    }
+    // if ((c = getchar()) == EOF || c == '\n') {
+    //   printf("Input: \n");
+    // } else {
+    //   ungetchar(c);
+    // }
   }
 
   while (true) {
