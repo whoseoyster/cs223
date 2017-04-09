@@ -2,26 +2,6 @@
 #include "dict.h"
 #include <assert.h>
 
-#define MAXHEAP 4
-
-// heapslot * heap;
-// int heapnum;
-// int maxheap;
-
-// // from Van Wyk, chapter 10, page 233++
-// typedef struct heapslot heapslot;
-// struct heapslot {
-//   int key;
-//   struct room * value;
-// } ;
-
-// struct heap {
-//     int size;           /* size of the pointer table */
-//     int n;              /* number of elements stored */
-//     struct heapslot ** heap;
-// };
-
-// typedef struct heap *Heap;
 
 bool empty(Heap h)
 {
@@ -41,6 +21,7 @@ void printHeap(Heap h)
 {
 	int heapcount = h->n;
 	printf("HEAP: ");
+	fflush(stdout);
 	for(int i = 1; i <= heapcount; i++){
 		printf("[%d: %s %d/%d] ", i, h->heap[i]->value->room, h->heap[i]->key, h->heap[i]->value->temp);
 	}
@@ -55,10 +36,7 @@ struct room * findmin(Heap h)
 
 Heap initheap()
 {
-	// heapnum = 0;
 	int maxheap = MAXHEAP;
-	// heap = malloc(maxheap * sizeof(heap));
-	// heap[0].key = INT_MIN;
 
 	Heap h;
 	h = malloc(sizeof(*h));
@@ -71,10 +49,6 @@ Heap initheap()
 	assert(h->heap);
 
 	for(int i = 0; i < h->size; i++) h->heap[i] = 0;
-
-	// struct heapslot *i;
-	// i = h->heap[0];
-	// i->key = 0;
 
 	heapslot *e;
 
@@ -102,19 +76,24 @@ void insert( Heap h, int key, struct room * r)
 {
 	int cur, parent;
 
+	Heap j;
+	j = h;
+
 	printf("INSERT: %d, %s, %d ", key, r->room, r->temp);
 	fflush(stdout); 
 
-	int heapnum = h->n;
-	int maxheap = h->size;
+	int heapnum = j->n + 1;
+	int maxheap = j->size;
 
 	//demand(heapnum < maxheap, "heap overflow\n");
 	while(heapnum  >= maxheap) {
 		maxheap *= 2;
 		printf("\nExpanding heap size to %d\n", maxheap);
-		h = realloc(h, sizeof(*h) * maxheap);
+		h->heap = realloc(h->heap, sizeof(struct heapslot *) * maxheap);
 		demand(h != 0, "malloc fail in insert\n");
+		printf("Realloc: %p\n", (void *) h->heap);
 	}
+	j->size = maxheap;
 
 	heapslot *e;
 
@@ -128,24 +107,24 @@ void insert( Heap h, int key, struct room * r)
     e->value = r;
     //printRoom(value);
 
-	cur = ++heapnum;
+	cur = heapnum;
 
-	h->heap[cur] = e;
+	j->heap[cur] = e;
 
 	parent = cur/2;
 
-	while (h->heap[parent] && h->heap[parent]->key > h->heap[cur]->key) {
+	while (j->heap[parent] && j->heap[parent]->key > j->heap[cur]->key) {
 		printf("\n--");
-		printHeap(h);
+		printHeap(j);
 		demand(parent > 0, "inserted item rising past root\n");
-		swap(h->heap[parent], h->heap[cur]);
+		swap(j->heap[parent], j->heap[cur]);
 		cur = parent;
 		parent = cur/2;
 	}
 
-	h->n++;
+	j->n++;
 
-	printHeap(h);
+	printHeap(j);
 }
 
 void deletemin( Heap h)
