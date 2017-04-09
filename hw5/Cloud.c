@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
       i++;
       d = true;
     }
-    if (c == '\n' && in[0] == '\0') {
+    if (c == '\n' && in[0] == '\0' && debugflag) {
       printf("Input: \n");
     }
 
