@@ -11,7 +11,7 @@ Fire:  Fire.o dict.o heap.o
 Fire.o: Fire.c
 	${CC} ${CFLAGS} -c Fire.c
 
-heap.o: heap.c /c/cs223/hw6/heap.h
+heap.o: heap.c heap.h
 	${CC} ${CFLAGS} -c heap.c
 
 dict.o: /c/cs223/hw6/dict.c /c/cs223/hw6/dict.h

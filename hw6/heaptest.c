@@ -3,15 +3,14 @@
 #include <stdbool.h>
 #include <limits.h>
 #include <string.h>
+#include <assert.h>
 #include "heap.h"
 #include "dict.h"
 
-void * mymalloc(size_t s, int i);
+// void * mymalloc(size_t s, int i);
 
 int main(int argc, char ** argv){
-
   debugflag = true;
-
   Heap h = initheap();
 
   struct room * r;
@@ -22,12 +21,17 @@ int main(int argc, char ** argv){
     for (int i=1; i < argc; i++) {
       int val = atoi(argv[i]);
       if (val > 0) {
-	r = mymalloc(sizeof(struct room *), 7);
-	r->temp = val*val;
-	sprintf(r->room, "R%d", val);
-	insert(h, val, r);
+      	r = malloc(sizeof(struct room *) * 7);
+        assert(r);
+
+      	r->temp = val*val;
+
+      	sprintf(r->room, "R%d", val);
+
+      	insert(h, val, r);
+
       } else {
-	deletemin(h);
+	      deletemin(h);
       }
     }
   } else {
