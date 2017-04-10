@@ -20,6 +20,8 @@
 
 #define _GNU_SOURCE 1
 
+char *strdup(const char *s);
+
 #define ungetchar(c)  ungetc(c, stdin)    // unread char read from stdin
 
 int main(int argc, char **argv) {
