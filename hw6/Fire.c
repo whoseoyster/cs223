@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
       j=0;
       tok = strtok(in, " ");
 
-      r = malloc(sizeof(struct room *));
+      r = malloc(sizeof(struct room *) * 7);
       assert(r);
 
       while( tok != NULL ) 
