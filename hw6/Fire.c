@@ -33,6 +33,7 @@ char *strdup(const char *s);
 // Function Prototypes
 int dfsearch (Dict d, char * key);
 int bfsearch (Dict d, Heap queue, char * key);
+void removeRoom(Heap h);
 // int bestsearch(Dict d, Heap h, char * room);
 // int connectivity (Dict d, char * key, int * a);
 // int directed (Dict d);
@@ -303,6 +304,7 @@ int bfsearch (Dict d, Heap queue, char * key)
 // exitandfree
 // Exits and frees remaining memory
 ///////////////////////////////////////////////////////////////////////////////
+
 void exitandfree(Dict d, Heap queue, Heap h)
 {
   //destroyHeap(queue);
@@ -310,17 +312,15 @@ void exitandfree(Dict d, Heap queue, Heap h)
   DictDestroy(d);
   //exit(0);
 
-  for (int i = 0; i < queue->size; i++)
+  for (int i = 0; i < queue->n; i++)
   {
-    printf("nana\n");
+    // printHeap(queue);
     free(queue->heap[i]);
   }
-  printf("akaka\n");
   free (queue->heap);
-  printf("babab\n");
   free (queue);
 
-  for (int i = 0; i < h->size; i++)
+  for (int i = 0; i < h->n; i++)
   {
     free(h->heap[i]);
   }
