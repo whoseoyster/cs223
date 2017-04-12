@@ -164,7 +164,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Room %s already in graph.  Replacing it.\n", r->room);
         k--;
       }
-      DictInsert(d, strdup(r->room), r);
+      DictInsert(d, r->room, r);
 
       k++;
       i=0;
@@ -312,9 +312,12 @@ void exitandfree(Dict d, Heap queue, Heap h)
 
   for (int i = 0; i < queue->size; i++)
   {
+    printf("nana\n");
     free(queue->heap[i]);
   }
+  printf("akaka\n");
   free (queue->heap);
+  printf("babab\n");
   free (queue);
 
   for (int i = 0; i < h->size; i++)
