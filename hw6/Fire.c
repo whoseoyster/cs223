@@ -319,12 +319,14 @@ void exitandfree(Dict d, Heap queue, Heap h)
   }
   free (queue->heap);
   free (queue);
+  // destroyHeap(queue);
 
-  for (int i = 0; i < h->n; i++)
-  {
-    free(h->heap[i]);
-  }
-  free (h->heap);
-  free (h);
+  // for (int i = 0; i < h->n+1; i++)
+  // {
+  //   free(h->heap[i]);
+  // }
+  // free (h->heap);
+  // free (h);
+  destroyHeap(h);
   exit(0);
 }
