@@ -280,7 +280,7 @@ int bfsearch (Dict d, Heap queue, char * key)
   while (!empty(queue))
   {
     r = findmin(queue);
-    // printf( " %s", r->room);
+    printf( " %s", r->room);
     if (r->temp > FIRETEMP)
     {
       printf("  SUCCESS!\n");
