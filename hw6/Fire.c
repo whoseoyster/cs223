@@ -312,9 +312,10 @@ void exitandfree(Dict d, Heap queue, Heap h)
   DictDestroy(d);
   //exit(0);
 
-  for (int i = 0; i <= queue->n; i++)
+  for (int i = 0; i < queue->size; i++)
   {
     // printHeap(queue);
+    printf("deleting heapslot: %i\n", i);
     free(queue->heap[i]);
   }
   free (queue->heap);
