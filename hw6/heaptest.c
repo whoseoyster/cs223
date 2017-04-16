@@ -19,7 +19,7 @@ int main(void){
     printf("Heap is empty\n");
   }
 
-  findmin(h);
+  deletemin(h);
 
   // Destroy the heap
   // destroyHeap *should* free not only the heap but also the rooms on the heap
