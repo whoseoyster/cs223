@@ -1,5 +1,5 @@
-#include "heap.h"
-#include "dict.h"
+#include "/c/cs223/hw6/heap.h"
+#include "/c/cs223/hw6/dict.h"
 #include <assert.h>
 
 
@@ -130,23 +130,22 @@ void insert( Heap h, int key, struct room * r)
 void deletemin( Heap h)
 {
 	int cur, child;
-	int heapnum = h->n;
 	if (debugflag)
 		printf("DELETEMIN: ");
 	demand(! empty(h), "deletemin not allowed on empty heap\n");
-	swap(h->heap[1], h->heap[heapnum--]);
+	swap(h->heap[1], h->heap[h->n--]);
 	cur = 1;
 	child = 2;
-	while (child <= heapnum) {
+	while (child <= h->n) {
 		if (debugflag) {
 			printf("\n--");
 			printHeap(h);
 		}
-		if (child < heapnum &&
+		if (child < h->n &&
 			h->heap[child+1]->key < h->heap[child]->key)
 		  child++;
 		if (h->heap[cur]->key > h->heap[child]->key) {
-		  demand(child <= heapnum, "falling past leaves\n");
+		  demand(child <= h->n, "falling past leaves\n");
 		  swap(h->heap[cur], h->heap[child]);
 		  cur = child;
 		  child = 2*cur;

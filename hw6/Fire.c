@@ -15,8 +15,8 @@
 #include <ctype.h>
 #include <string.h>
 #include <assert.h>
-#include "dict.h"
-#include "heap.h"
+#include "/c/cs223/hw6/dict.h"
+#include "/c/cs223/hw6/heap.h"
 
 #define _GNU_SOURCE 1
 #define FIRETEMP 400
@@ -34,10 +34,10 @@ char *strdup(const char *s);
 int dfsearch (Dict d, char * key);
 int bfsearch (Dict d, Heap queue, char * key);
 void removeRoom(Heap h);
-// int bestsearch(Dict d, Heap h, char * room);
-// int connectivity (Dict d, char * key, int * a);
-// int directed (Dict d);
-// int hasPath(Dict d, char * start, char * end);
+int bestsearch(Dict d, Heap h, char * room);
+int connectivity (Dict d, char * key, int * a);
+int directed (Dict d);
+int hasPath(Dict d, char * start, char * end);
 void exitandfree(Dict d, Heap queue, Heap h);
 
 int main(int argc, char **argv) {
@@ -194,6 +194,11 @@ int main(int argc, char **argv) {
       }
     }
 
+  if (!DictSearch(d, room)) {
+    fprintf(stderr, "Fatal error: room %s not included in graph.\n", room);
+    exit(1);
+  }
+
   if (dfs || (!dfs && !bfs && !best && !conn && !dir))
   {
       printf("Starting depth first search:");
@@ -207,25 +212,25 @@ int main(int argc, char **argv) {
     if (!bfsearch (d, queue, room))
       printf("  FAILED\n");
   }
-  // if (best)
-  // {
-  //   printf("Starting best first search:");
-  //   if (!bestsearch (graph, h, room))
-  //     printf("  FAILED\n");
-  // }
-  // if (conn)
-  // {
-  //   int a = 0;
-  //   connectivity (graph, room, &a);
-  //   if (a == graph->n)
-  //     printf("Graph is connected.\n");
-  //   else
-  //     printf("Graph is NOT connected.\n");
-  // }
-  // if (dir)
-  // {
-  //   directed(graph);
-  // }
+  if (best)
+  {
+    printf("Starting best first search:");
+    if (!bestsearch (d, h, room))
+      printf("  FAILED\n");
+  }
+  if (conn)
+  {
+    int a = 0;
+    connectivity (d, room, &a);
+    if (a == d->n)
+      printf("Graph is connected.\n");
+    else
+      printf("Graph is NOT connected.\n");
+  }
+  if (dir)
+  {
+    directed(d);
+  }
 
   exitandfree(d, queue, h);
 
@@ -296,6 +301,121 @@ int bfsearch (Dict d, Heap queue, char * key)
       }
     }
     deletemin(queue);
+  }
+  return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// bestsearch
+// Searches a graph starting at room by following the path of highest heat
+///////////////////////////////////////////////////////////////////////////////
+int bestsearch(Dict d, Heap h, char * room)
+{
+  struct room * r = DictSearch(d, room);
+  if (!r)
+    return 0;
+  else if (r->visited == bestbool)
+    return 0;
+  printf(" %s", r->room);
+  if (r->temp > FIRETEMP)
+  {
+    printf("  SUCCESS!\n");
+    return 1;
+  }
+  r->visited = bestbool;
+  for (int i = 0; i < r->ncount; i++)
+  {
+    struct room * neighbor = DictSearch(d, r->neighbors[i]);
+    if (neighbor)
+      insert( h, -1*neighbor->temp, neighbor);
+  }
+  while (!empty(h))
+  {
+    r = findmin(h);
+    deletemin(h);
+    if (bestsearch(d, h, r->room))
+      return 1;
+  }
+  return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// connectivity
+// Determines if a graph is connected or not by counting the number of nodes
+// that are possible to visit (starting from key). If the nodes visited is
+// equal to the total number of nodes, the graph is connected.
+///////////////////////////////////////////////////////////////////////////////
+int connectivity (Dict d, char * key, int * a)
+{
+  struct room * r = DictSearch(d, key);
+  if (r->visited == connbool)
+    return 0;
+
+  r->visited = connbool;
+  // printf("ROOM: %s n-count: %i\n", r->room, r->ncount);
+  (*a)++;
+  for (int i = 0; i < r->ncount; i++)
+  {
+
+    if (!DictSearch(d, r->neighbors[i]))
+    {
+      if (debugflag)
+        printf("Missing neighbor: %s\n", r->neighbors[i]);
+    }
+    else if (connectivity (d, r->neighbors[i], a))
+      return 1;
+  }
+
+  return 0;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// directed
+// Checks to see if a graph is directed
+///////////////////////////////////////////////////////////////////////////////
+int directed (Dict d)
+{
+  int symmetric = 1;
+  struct elt *e;              /* what to print */
+
+  for(int i=0; i < d->size; i++)
+  {
+    if (d->table[i])
+    {
+      for (e = d->table[i];e != NULL; e = e->next)
+      { // gives a starting node
+        for (int j = 0; j < e->value->ncount; j++)
+        {
+          if (!hasPath(d, e->value->neighbors[j], e->value->room))
+          {
+            symmetric = 0;
+            printf("Rooms %s and %s are not symmetric.\n",
+              e->value->neighbors[j], e->value->room);
+          }
+        }
+      }
+    }
+  }
+  if (symmetric)
+    printf("Graph is undirected.\n");
+  else
+    printf("Graph is directed.\n");
+  return !symmetric;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// hasPath
+// Returns true if end is a neighbor of start in the graph
+///////////////////////////////////////////////////////////////////////////////
+int hasPath(Dict d, char * start, char * end)
+{
+  struct room * r = DictSearch(d, start);
+  if (!r)
+    return 0;
+  for (int i = 0; i < r->ncount; i++)
+  {
+    if (strcmp(r->neighbors[i], end) == 0)
+      return 1;
   }
   return 0;
 }
