@@ -3,10 +3,10 @@
 #include <stdbool.h>
 #include <limits.h>
 #include <string.h>
-#include "heap.h"
-#include "dict.h"
+#include "/c/cs223/hw6/heap.h"
+#include "/c/cs223/hw6/dict.h"
 
-// Simple heap test
+// Heap handles duplicates reasonably
 
 int main(void){
 
@@ -31,8 +31,12 @@ int main(void){
   insert(h, 3, r);
 
   r = malloc(sizeof(struct room));
-  sprintf(r->room, "R10");
-  insert(h, 4, r);
+  sprintf(r->room, "R12");
+  insert(h, 6, r);
+
+  r = malloc(sizeof(struct room));
+  sprintf(r->room, "R08");
+  insert(h, 1, r);
 
   r = malloc(sizeof(struct room));
   sprintf(r->room, "R09");
@@ -41,10 +45,6 @@ int main(void){
   r = malloc(sizeof(struct room));
   sprintf(r->room, "R08");
   insert(h, 1, r);
-
-  r = malloc(sizeof(struct room));
-  sprintf(r->room, "R07");
-  insert(h, 2, r);
 
   // Remove minimum
   // You can assume that any heaptest will:
@@ -74,50 +74,3 @@ int main(void){
   destroyHeap(h);
 
 }
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <stdbool.h>
-// #include <limits.h>
-// #include <string.h>
-// #include "heap.h"
-// #include "dict.h"
-
-// // void * mymalloc(size_t s, int i);
-// void removeRoom(Heap h) {
-//   struct room * min = findmin(h);
-//   free(min);
-//   deletemin(h);
-// }
-
-// int main(int argc, char ** argv){
-//   debugflag = true;
-
-//   Heap h = initheap();
-
-//   struct room * r;
-
-//   //printHeap();
-//   if (argc > 1) {
-//     for (int i=1; i < argc; i++) {
-//       int val = atoi(argv[i]);
-//       if (val > 0) {
-//  r = mymalloc(sizeof(struct room *), 7);
-//  r->temp = val*val;
-//  sprintf(r->room, "R%d", val);
-//  insert(h, val, r);
-//       } else {
-//  removeRoom(h);
-//       }
-//     }
-//   } else {
-//     fprintf(stderr, "Usage: heap [numbers]+\n");
-//   }
-//   while (!empty(h)) {
-//     removeRoom(h);
-//   }
-//   destroyHeap(h);
-
-// }
-
-
