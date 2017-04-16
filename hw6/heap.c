@@ -168,8 +168,8 @@ void destroyHeap( Heap h)
         e = h->heap[i];
         if (debugflag)
         	printf("Freeing: %d\n", e->key);
-        // if (e->value)
-        // 	free(e->value);
+        if (e->value)
+        	free(e->value);
         free(e);
     }
 
