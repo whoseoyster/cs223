@@ -133,8 +133,8 @@ void deletemin( Heap h)
 	if (debugflag)
 		printf("DELETEMIN: ");
 	demand(! empty(h), "deletemin not allowed on empty heap\n");
-	h->heap[1] = NULL;
 	swap(h->heap[1], h->heap[h->n--]);
+	h->heap[h->n + 1] = NULL;
 	cur = 1;
 	child = 2;
 	while (child <= h->n) {
