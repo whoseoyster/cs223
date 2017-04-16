@@ -133,6 +133,7 @@ void deletemin( Heap h)
 	if (debugflag)
 		printf("DELETEMIN: ");
 	demand(! empty(h), "deletemin not allowed on empty heap\n");
+	h->heap[1] = NULL;
 	swap(h->heap[1], h->heap[h->n--]);
 	cur = 1;
 	child = 2;
@@ -168,10 +169,8 @@ void destroyHeap( Heap h)
         e = h->heap[i];
         if (debugflag)
         	printf("Freeing: %d\n", e->key);
-        printf("here\n");
         if (e->value)
         	free(e->value);
-        printf("no, here\n");
         free(e);
     }
 
