@@ -24,6 +24,7 @@ int main(void){
   // Destroy the heap
   // destroyHeap *should* free not only the heap but also the rooms on the heap
   // you may assume that all room structs on the heap have been malloc'd.
+  printf("nanananan\n");
   destroyHeap(h);
 
 }
