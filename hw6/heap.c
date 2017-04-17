@@ -3,8 +3,8 @@
 // Implements heap functions
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "heap.h"
-#include "dict.h"
+#include "/c/cs223/hw6/heap.h"
+#include "/c/cs223/hw6/dict.h"
 #include <assert.h>
 
 
