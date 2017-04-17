@@ -51,6 +51,7 @@ int main(int argc, char **argv) {
   bool conn = false;
   bool dir = false;
   bool best = false;
+  bool room_bool = false;
 
   char room[4] = "una";
 
@@ -68,6 +69,7 @@ int main(int argc, char **argv) {
         printf("Usage: Fire -room value [-dfs | -bfs | -best | -conn | -dir]\n");
         exit(1);
       }
+      room_bool = true;
       strcpy(room, argv[l]);
     } else if (strcmp(argv[l], "-dfs") == 0) {
       dfs = true;
@@ -85,6 +87,12 @@ int main(int argc, char **argv) {
       fprintf(stderr, "Fatal error: invalid command line argument: %s\n", argv[l]);
       exit(1);
     }
+  }
+
+  if (!room_bool) {
+    fprintf(stderr, "Fatal error: no room given.\n" );
+    printf("Usage: Fire -room value [-dfs | -bfs | -best | -conn | -dir]\n");
+    exit(1);
   }
 
   //declare input processing variables
