@@ -1,0 +1,20 @@
+ESTIMATE of time to complete assignment: 7 hours
+
+      Time     Time
+Date  Started  Spent Work completed
+----  -------  ----  --------------
+4/13  10:00am  1:00  Read assignment and relevant material in K&R.
+					 Read up on heaps and recapped hash tables.
+4/13  12:00pm  2:00  Completed most functions in heap.c. Primarily used functions laid out in Slade's 					   notes from class, but altered to allow for hash table structure.
+4/14  3:15pm   1:30  Began Fire.c. Added stdin/out parsing capabilities to read tokens from input 						 files. Placed rooms in hash table and accounted for possible reading errors. 						 Began algorithms.
+4/15  6:30pm   4:00  Implemented all the three algorithms as well as the connected and directed 						 options.
+4/16  8:00pm   1:00  Bug fixes.
+
+               ----
+               9:30  TOTAL time spent
+
+I discussed my solution with: nobody.
+
+*A brief discussion of the major difficulties encountered*
+
+The toughest part of this homework was to get the algorithms working correctly. Implementing the heaps was relatively straightforward, especially with guidance from Prof. Slade's notes. Placing the rooms into a dictionary was not very challenging, but understanding what to assign their keys in the three algorithms was tricky for me. Keeping the print statements appropriately loud or muted was just a matter of trial and error with Firex. Freeing memory for the rooms gave me a bit of trouble, as I was not entirely sure why a room needed to be freed anywhere outside of deletemin in the heap. Making sure that there were no rooms with neighbors not in the dictionary was a little bit frustrating, because I wasn't able to loop through the dictionary correctly at first.

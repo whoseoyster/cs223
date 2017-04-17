@@ -26,8 +26,6 @@
 #define connbool 8 // 'visited' parameter
 #define dirbool 9
 
-char *strdup(const char *s);
-
 #define ungetchar(c)  ungetc(c, stdin)    // unread char read from stdin
 
 // Function Prototypes
@@ -39,10 +37,15 @@ int connectivity (Dict d, char * key, int * a);
 int directed (Dict d);
 int hasPath(Dict d, char * start, char * end);
 void exitandfree(Dict d, Heap queue, Heap h);
+char *strdup(const char *s);
+
+///////////////////////////////////////////////////////////////////////////////
+// main
+// Reads in a building and searches for fires
+///////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char **argv) {
 
-  // bool room_bool = false;
   bool dfs = false;
   bool bfs = false;
   bool conn = false;
