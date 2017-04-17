@@ -111,5 +111,8 @@ StackCount(stackT *stackP)
 // Token at the top of stack
 Token 
 StackTop(stackT *stackP) {
-	return stackP->contents[stackP->top];
+	if (!StackIsEmpty(stackP))
+		return stackP->contents[stackP->top];
+	else
+		return 0;
 }

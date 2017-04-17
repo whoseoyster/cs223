@@ -178,6 +178,10 @@ int main(int argc, char **argv) {
           StackPush(&st1, t);
         } else if (strcmp(tok, ")") == 0) {
           t->type = RPAR;
+          if(StackIsEmpty(&st1)) {
+            fprintf(stderr, "Fatal error: missing left paren.\n");
+            exit(0);
+          }
           top = StackTop(&st1);
           while (top->type != LPAR) {
             StackPop(&st1);
