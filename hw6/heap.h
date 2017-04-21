@@ -4,7 +4,6 @@
 #include <limits.h>
 
 
-
 #define MAXHEAP 4
 
 bool debugflag;
