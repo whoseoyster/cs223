@@ -1,9 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <stdint.h>
-
 #include "avltree.h"
+
+#define _POSIX_C_SOURCE 200809L
 
 int
 atreeHeight(const struct tree *root)
@@ -149,16 +146,29 @@ atreeDestroy(struct tree **root)
         for(i = 0; i < TREE_NUM_CHILDREN; i++) {
             atreeDestroy(&(*root)->child[i]);
         }
+        free((*root)->key);
         free(*root);
         *root = 0;
     }
 }
 
-
+/* return 1 if target is in tree, 0 otherwise */
+struct tree *
+treeContains(struct tree *t, char * target)
+{
+    while(t && strcmp(t->key, target) != 0) {
+        int chld = 0;
+        if (strcmp(t->key, target) < 0) {
+            chld = 1;
+        }
+        t = t->child[chld];
+    }
+    return t;
+}
 
 /* insert an element into a tree pointed to by root */
 void
-atreeInsert(struct tree **root, int newElement)
+atreeInsert(struct tree **root, char * newElement)
 {
     struct tree *e;
 
@@ -168,14 +178,20 @@ atreeInsert(struct tree **root, int newElement)
         e = malloc(sizeof(*e));
         assert(e);
 
-        e->key = newElement;
+        e->key = strdup(newElement);
         e->count = 1;
         e->child[LEFT] = e->child[RIGHT] = 0;
 
         *root = e;
     } else {
         /* do this recursively so we can fix data on the way back out */
-        atreeInsert(&(*root)->child[(*root)->key < newElement], newElement);
+        if (strcmp((*root)->key, newElement) < 0) {
+            atreeInsert(&(*root)->child[1], newElement);
+        } else if (strcmp((*root)->key, newElement) == 0) {
+            (*root)->count++;
+        } else {
+            atreeInsert(&(*root)->child[0], newElement);
+        }
     }
 
     /* fix the aggregate data */
@@ -183,24 +199,13 @@ atreeInsert(struct tree **root, int newElement)
     treeRebalance(root);
 }
 
-/* return 1 if target is in tree, 0 otherwise */
-int
-treeContains(const struct tree *t, int target)
-{
-    while(t && t->key != target) {
-        t = t->child[t->key < target];
-    }
-
-    return t != 0;
-}
-
 /* delete minimum element from the tree and return its key */
 /* do not call this on an empty tree */
-int
+char *
 treeDeleteMin(struct tree **root)
 {
     struct tree *toFree;
-    int retval;
+    char * retval;
 
     assert(*root);  /* can't delete min from empty tree */
 
@@ -225,7 +230,7 @@ treeDeleteMin(struct tree **root)
 /* delete target from the tree */
 /* has no effect if target is not in tree */
 void 
-treeDelete(struct tree **root, int target)
+treeDelete(struct tree **root, char * target)
 {
     struct tree *toFree;
 
@@ -242,7 +247,14 @@ treeDelete(struct tree **root, int target)
                 free(toFree);
             }
         } else {
-            treeDelete(&(*root)->child[(*root)->key < target], target);
+            if (strcmp((*root)->key, target) > 0) {
+                treeDelete(&(*root)->child[0], target);
+            } else if (strcmp((*root)->key, target) == 0) {
+                treeDelete(&(*root)->child[1], target);
+            } else {
+                treeDelete(&(*root)->child[1], target);
+            }
+            
         }
 
         /* fix the aggregate data */
@@ -267,7 +279,7 @@ treePrintIndented(const struct tree *root, int depth)
         for(i = 0; i < INDENTATION_LEVEL*depth; i++) {
             putchar(' ');
         }
-        printf("%d Height: %d Size: %zu (%p)\n", root->key, root->height, root->size, (void *) root);
+        printf("%s Height: %d Size: %zu Count: %d (%p)\n", root->key, root->height, root->size, root->count, (void *) root);
 
         treePrintIndented(root->child[RIGHT], depth+1);
     }
@@ -281,12 +293,13 @@ treePrint(const struct tree *root)
 }
 
 size_t
-treeRank(const struct tree *t, int target)
+treeRank(const struct tree *t, char * target)
 {
     size_t rank = 0;
 
-    while(t && t->key != target) {
-        if(t->key < target) {
+    while(t && strcmp(t->key, target) != 0) {
+
+        if(strcmp(t->key, target) < 0) {
             /* go right */
             /* root and left subtree are all less than target */
             rank += (1 + atreeSize(t->child[LEFT]));
@@ -301,7 +314,7 @@ treeRank(const struct tree *t, int target)
     return rank + atreeSize(t->child[LEFT]);
 }
 
-int
+char *
 treeUnrank(const struct tree *t, size_t rank)
 {
     size_t leftSize;
@@ -321,68 +334,113 @@ treeUnrank(const struct tree *t, size_t rank)
     return t->key;
 }
 
-#ifdef TEST_MAIN
-/* check that aggregate data is correct throughout the tree */
-static void
-treeSanityCheck(const struct tree *root)
+// print the contents of the tree in preorder, inorder, and postorder,
+// respectively.
+void 
+aprintTreePre(struct tree * t) 
 {
-    int i;
-
-    if(root) {
-        assert(root->height == treeComputeHeight(root));
-        assert(root->size == treeComputeSize(root));
-
-        for(i = 0; i < TREE_NUM_CHILDREN; i++) {
-            treeSanityCheck(root->child[i]);
-        }
+    printf("%s [%i / %i] ", t->key, t->count, atreeHeight(t));
+    if (t->child[LEFT] != 0) {
+        aprintTreePre(t->child[LEFT]);
+    }
+    if (t->child[RIGHT] != 0) {
+        aprintTreePre(t->child[RIGHT]);
     }
 }
 
-int
-main(int argc, char **argv)
+void 
+aprintTreeIn(struct tree * t)
 {
-    int i;
-    const int n = 10;
-    struct tree *root = TREE_EMPTY;
-
-    if(argc != 1) {
-        fprintf(stderr, "Usage: %s\n", argv[0]);
-        return 1;
+    if (t->child[LEFT] != 0) {
+        aprintTreeIn(t->child[LEFT]);
     }
-
-    for(i = 0; i < n; i++) {
-        assert(!treeContains(root, i));
-        atreeInsert(&root, i);
-        assert(treeContains(root, i));
-#ifdef PRINT_AFTER_OPERATIONS
-        treePrint(root);
-        puts("---");
-#endif
+    printf("%s [%i / %i] ", t->key, t->count, atreeHeight(t));
+    if (t->child[RIGHT] != 0) {
+        aprintTreeIn(t->child[RIGHT]);
     }
-
-    /* check ranks */
-    for(i = 0; i < n; i++) {
-        assert(treeRank(root, i) == i);
-        assert(treeUnrank(root, i) == i);
-    }
-
-    treeSanityCheck(root);
-
-    /* now delete everything */
-    for(i = 0; i < n; i++) {
-        assert(treeContains(root, i));
-        treeDelete(&root, i);
-        assert(!treeContains(root, i));
-#ifdef PRINT_AFTER_OPERATIONS
-        treePrint(root);
-        puts("---");
-#endif
-    }
-
-    treeSanityCheck(root);
-
-    atreeDestroy(&root);
-
-    return 0;
 }
-#endif
+void 
+aprintTreePost(struct tree * t)
+{
+    if (t->child[LEFT] != 0) {
+        aprintTreePost(t->child[LEFT]);
+    }
+    if (t->child[RIGHT] != 0) {
+        aprintTreePost(t->child[RIGHT]);
+    }
+    printf("%s [%i / %i] ", t->key, t->count, atreeHeight(t));
+}
+
+// #ifdef TEST_MAIN
+
+
+// int
+// main(int argc, char **argv)
+// {
+//     // int i;
+//     // const int n = 10;
+//     struct tree *root = TREE_EMPTY;
+
+//     if(argc != 1) {
+//         fprintf(stderr, "Usage: %s\n", argv[0]);
+//         return 1;
+//     }
+
+//     // char test[10] = {'a', 'c', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'c'};
+
+// //     for(i = 0; i < 10; i++) {
+// //         assert(!treeContains(root, test[i]));
+// //         atreeInsert(&root, test[i]);
+// //         assert(treeContains(root, test[i]));
+// // #ifdef PRINT_AFTER_OPERATIONS
+// //         treePrint(root);
+// //         puts("---");
+// // #endif
+// //     }
+
+//     // assert(!treeContains(root, "a"));
+//     atreeInsert(&root, "a");
+//     // assert(treeContains(root, "a"));
+//     treePrint(root);
+//     puts("---");
+
+//     // printf("bitch: %s\n", (treeContains(root, "a"))->key);
+//     treeContains(root, "a");
+
+//     printf("Tree height: %i\n", atreeHeight(root));
+//     printf("Tree size: %zu\n", atreeSize(root));
+
+//     aprintTreePre(root);
+//     putchar('\n');
+//     aprintTreeIn(root);
+//     putchar('\n');
+//     aprintTreePost(root);
+//     putchar('\n');
+
+//     // /* check ranks */
+//     // for(i = 0; i < n; i++) {
+//     //     assert(treeRank(root, i) == i);
+//     //     assert(treeUnrank(root, i) == i);
+//     // }
+
+//     // treeSanityCheck(root);
+
+// //     /* now delete everything */
+// //     for(i = 0; i < n; i++) {
+// //         assert(treeContains(root, i));
+// //         treeDelete(&root, i);
+// //         assert(!treeContains(root, i));
+// // #ifdef PRINT_AFTER_OPERATIONS
+// //         treePrint(root);
+// //         puts("---");
+// // #endif
+// //     }
+
+//     // treeSanityCheck(root);
+
+//     atreeDestroy(&root);
+
+//     return 0;
+// }
+
+// #endif
