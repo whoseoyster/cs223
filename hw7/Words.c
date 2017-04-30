@@ -137,7 +137,7 @@ void TwoWords (char * str, Hash h)
         printf("SUCCESS: ");
         success = true;
       }
-      printf("%s %s.", first, last);
+      printf("%s %s.  ", first, last);
     }
   }
   if (!success)
