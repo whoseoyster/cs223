@@ -1,0 +1,29 @@
+ESTIMATE of time to complete assignment: 6 hours
+
+      Time     Time
+Date  Started  Spent Work completed
+----  -------  ----  --------------
+4/28  1:00pm   0:30  Read assignment and relevant material in Aspnes and lectures.
+					 Recapped hash tables. 
+4/28  4:00pm   1:00  Completed command line argument parsing and hash table implementation
+					 for dictionary of words. Began stdin input checks to make sure
+					 the text was alpha etc.
+4/28  8:15pm   1:00  Finished stdin. Finished the TwoWords implementation. Made sure the
+					 print statements matched the staff solution.
+4/30  11:00am  2:30  Implemented the Dynamic Programming method of splitting words.
+4/30  2:00pm   0:30  Bug fixes.
+
+               ----
+               5:30  TOTAL time spent
+
+I discussed my solution with: nobody.
+
+*A brief discussion of the major difficulties encountered*
+
+The toughest part of this homework was to get the dynamic programming solution to work well. Intuitively,
+getting the pseudo-code version of the algorithm implemented in a matrix was not very easy. Recursively
+printing the words from the dynamic programming solution was also giving me a few errors initially.
+For the hash table, reading the input file was tricky at first, but eventually worked out fine. This
+problem set was relatively easier than the others, as we didn't have to implement our own data structures
+and their specific algorithms. No memory leak issues also. Knowing that our dynamic programming solution did
+not need to look exactly like the staff solution's was also a relief.

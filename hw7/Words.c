@@ -30,7 +30,7 @@ bool debug_flag = false;
 int main (int argc, char * argv[])
 {
   char input[MAX_LINE_LENGTH]; // Standard Input string
-  char dict_name[MAX_LINE_LENGTH] = "words2"; // Name of dictionary
+  char dict_name[MAX_LINE_LENGTH] = "words"; // Name of dictionary
 
   // Command Line Arguments
   for (int i = 1; i < argc; i++)
