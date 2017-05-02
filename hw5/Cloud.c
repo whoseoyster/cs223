@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
         fprintf(stderr, "Missing threshold argument on command line.\n");
       }
       int v = atoi(argv[l]);
-      if (v == 0 || v == 1) {
+      if (v <= 0 || v == 1) {
         fprintf(stderr, "Invalid threshold value: %s\n", argv[l]);
         continue;
       }
